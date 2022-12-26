@@ -1,0 +1,27 @@
+{
+  "homepage": "https://waghashu03.github.io/",
+  "name": "ashutosh-wagh",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "git-deploy": "vite build && gh-pages -d dist",
+    "firebase-deploy": "vite build && firebase deploy",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "vite build && firebase deploy && gh-pages -d dist"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sass": "^1.56.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "^18.0.8",
+    "@vitejs/plugin-react": "^2.2.0",
+    "gh-pages": "^4.0.0",
+    "vite": "^3.2.3"
+  }
+}

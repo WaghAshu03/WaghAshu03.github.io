@@ -1,0 +1,137 @@
+.CalenderAndNotifications {
+  position: fixed;
+  bottom: 55px;
+  right: 10px;
+  // height: calc(90vh - 65px);
+  height: fit-content;
+  // min-height: 550px;
+  width: 350px;
+  transition: 150ms;
+  display: grid;
+  // grid-template-rows: 12rem auto;
+  // grid-column: 350px;
+  grid-row-gap: 10px;
+  transform: translate(360px, 0px);
+}
+
+.Calender {
+  background-color: #181818cc;
+  background-color: #ffffffcc;
+  color: black;
+  border-radius: 8px;
+  backdrop-filter: blur(20px);
+  // width: 350px;
+  transition: 300ms;
+  height: 100%;
+}
+
+.Notifications {
+  background-color: #181818cc;
+  backdrop-filter: blur(20px);
+  padding: 12px;
+  border-radius: 8px;
+  // width: 350px;
+  height: 12em;
+  display: grid;
+  grid-template-rows: 1.5rem auto;
+}
+
+// .NotificationsHeader {
+//   // background-color: red;
+//   display: flex;
+//   align-items: center;
+// }
+
+// .NotificationsHeader img {
+//   height: 90%;
+//   margin-left: auto;
+//   background-color: yellow;
+//   padding: 2px;
+//   border-radius: 3px;
+// }
+
+// .NotificationsBody {
+//   font-size: 0.85rem;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   // color: white;
+// }
+
+.CalenderOptions {
+  display: flex;
+}
+
+.CalenderOptionUpArrow {
+  margin-left: auto;
+}
+
+.CalenderDays,
+.CalenderMain {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-gap: 5px 5px;
+  text-align: center;
+}
+
+.CalenderDays {
+  margin-bottom: 5px;
+  height: 30px;
+}
+
+.CalenderDay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: red; */
+}
+
+.CalenderDate {
+  /* background-color: red; */
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gray-text {
+  color: gray;
+}
+
+.blue-circle {
+  width: fit-content;
+  background-color: #4eb7ff;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.blue-circle:hover {
+  background-color: #42a5e8;
+}
+
+.CalenderOptionUpArrow,
+.CalenderOptionDownArrow {
+  user-select: none;
+  /* background-color: red; */
+  cursor: default;
+}
+
+.calender-date:hover {
+  width: fit-content;
+  background-color: #ffffff1a;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calender-collapsable {
+  overflow: hidden;
+  // transition: 300ms;
+  transition: all 0.5s ease-in-out;
+}

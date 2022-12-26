@@ -1,0 +1,75 @@
+#StartupMessage {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  // z-index: 99999;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(43, 43, 43);
+  color: #fff;
+  border-radius: 8px;
+  height: fit-content;
+  overflow: hidden;
+}
+
+#StartupMessageMain {
+  padding: 20px;
+}
+
+#StartupMessageHeading {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+#StartupMessageAboutMe {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+
+#DownloadResume {
+  background: linear-gradient(
+    99deg,
+    rgb(106, 152, 240) 0%,
+    rgb(73, 97, 220) 130%
+  );
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
+  width: fit-content;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+#Socials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  background-color: red;
+}
+
+.SocialsItem {
+  height: 100%;
+}
+
+#SocialsGitLogo {
+  height: 100%;
+  background-color: white;
+  border-radius: 50%;
+}
+
+#StartupMessageFooter {
+  margin-top: auto;
+  background-color: rgb(32, 32, 32);
+  padding: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  text-align: right;
+}

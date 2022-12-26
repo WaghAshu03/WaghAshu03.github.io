@@ -1,0 +1,157 @@
+$window-header-height: 38px;
+$window-header-padding: 10px;
+
+.window {
+  z-index: 9;
+  background-color: #e5eaff;
+  color: black;
+  min-height: 150px;
+  overflow: hidden;
+  display: grid;
+  min-width: 480px;
+  min-height: 480px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  grid-template-rows: 38px 40px auto 25px;
+}
+
+.fullscreen-window {
+  width: 100vw;
+  height: calc(100vh - 50px);
+  top: 0;
+  left: 0;
+}
+
+.WindowHeaderIcon {
+  transition: 200ms;
+  background-color: transparent;
+  cursor: default;
+  border-radius: 0;
+  // color: black;
+  padding: 0;
+  width: $window-header-height + $window-header-padding + 5px;
+  height: $window-header-height + $window-header-padding - 10px;
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+}
+
+.WindowHeaderIcon:hover {
+  filter: contrast(2);
+  background-color: rgba(255, 255, 255, 0.1);
+  // background-color: #191932;
+}
+
+.WindowHeaderIcon img {
+  width: 40%;
+  height: 40%;
+  object-fit: contain;
+  filter: invert(1);
+}
+
+.WindowHeaderIconClose img {
+  width: 50%;
+  height: 50%;
+}
+
+.WindowHeaderIconClose:hover {
+  background-color: red;
+}
+
+.WindowHeaderIconClose:hover img {
+  filter: invert(0);
+}
+
+.window-panel {
+  // background-color: red;
+}
+
+.window-content {
+  height: 100%;
+  overflow-y: scroll;
+  width: 100%;
+}
+
+.window-content-main {
+  // background-color: red;
+}
+
+.window-footer {
+  // margin-top: auto;
+  background-color: #1c1c1c;
+
+  // padding-left: 8px;
+  // background-color: red;
+}
+
+/*Drgable */
+
+.window {
+  border-radius: 8px;
+  position: fixed;
+}
+
+.window-header {
+  height: 100%; //  $window-header-height;
+  display: flex;
+  align-items: center;
+  // padding: $window-header-padding;
+  z-index: 10;
+  background-color: #15a5ff;
+  color: #fff;
+}
+
+.window-header-logo {
+  margin-left: 12px;
+  height: 45%;
+}
+
+.window-header-text {
+  margin-left: 8px;
+  margin-right: auto;
+}
+
+/*Resizeable*/
+
+.window .resizer-right {
+  width: 5px;
+  height: 100%;
+  background: transparent;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  cursor: e-resize;
+}
+
+.window .resizer-bottom {
+  width: 100%;
+  height: 5px;
+  background: transparent;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  cursor: n-resize;
+}
+
+.window .resizer-both {
+  width: 5px;
+  height: 5px;
+  background: transparent;
+  z-index: 10;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  cursor: nw-resize;
+}
+
+/*NOSELECT*/
+
+.window * {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                        supported by Chrome and Opera */
+}

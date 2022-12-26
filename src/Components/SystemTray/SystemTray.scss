@@ -1,0 +1,241 @@
+.SystemTray {
+  position: fixed;
+  bottom: 55px;
+  right: 10px;
+  width: 350px;
+  transition: 150ms;
+  transform: translate(0, 455vh);
+  // transition: visibility 0s linear 300ms, opacity 300ms;
+
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  visibility: hidden;
+}
+
+.SystemTrayMusic {
+  background-color: #242424;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
+    rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
+    rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+}
+
+.SystemTrayMain1 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  grid-gap: 8px 10px;
+  height: 100px;
+  background-color: #bdd0e5 #242424;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  margin-bottom: 0;
+  height: fit-content;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
+    rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
+    rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+}
+
+.SystemTrayButton {
+  position: relative;
+  transition: 150ms;
+  background-color: #313131;
+  width: 100%;
+  text-align: center;
+
+  height: 45px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border: solid 0.1px rgba(17, 17, 17, 0.1);
+  margin-bottom: 30px;
+}
+
+.SystemTrayButton img {
+  height: 38%;
+  filter: invert(1);
+}
+
+.SystemTrayButton:hover {
+  background-color: #505050;
+}
+.SystemTrayButton:active {
+  background-color: #454545;
+}
+
+.SystemTrayButton div {
+  position: absolute;
+  top: 48px;
+  // background-color: red;
+  font-size: 0.87rem;
+}
+
+.SystemTrayButtonLightTheme {
+  background-color: #fbfbfb;
+}
+
+.SystemTrayButtonLightTheme img {
+  filter: invert(0);
+}
+
+.SystemTrayButtonLightTheme:hover {
+  background-color: #ffffff;
+}
+.SystemTrayButtonLightTheme:active {
+  background-color: #ddd;
+}
+
+.SystemTrayButtonActive {
+  background-color: #4cc2ff;
+}
+.SystemTrayButtonActive img {
+  filter: invert(0);
+}
+
+.SystemTrayButtonActive:hover {
+  background-color: #93c7ff;
+}
+.SystemTrayButtonActive:active {
+  background-color: #79b7fa;
+}
+
+// .ScreenBrightness{
+//   margin-top: ;
+// }
+
+.ScreenBrightness,
+.VolumeSeekbar {
+  margin-top: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  grid-column: 1/4;
+  display: grid;
+  grid-template-columns: 30px auto 30px;
+}
+
+.ScreenBrightness div,
+.VolumeSeekbar div {
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Seekbar {
+  outline: none;
+  width: 100%;
+  outline: 0;
+  border: 0;
+  outline: none;
+  border: 0;
+  margin-left: 10px;
+}
+
+.SystemTrayMain2 {
+  margin-top: -1px;
+  background-color: #161616;
+  height: 20px;
+  padding: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  display: flex;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
+    rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
+    rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+}
+
+.VolumeSeekbar img,
+.ScreenBrightness img {
+  filter: invert(1);
+  width: 60%;
+}
+
+.SystemTrayMain2 div {
+  height: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 150ms;
+}
+
+.SystemTrayMain2 div:hover {
+  background-color: #303030;
+}
+
+.SystemTrayMain2Light div:hover {
+  background-color: #f6f7fa;
+}
+
+.SystemTrayMain2 div img {
+  filter: invert(1);
+  height: 100%;
+  margin-right: 5px;
+}
+
+// ------------------------
+
+input[type="range"] {
+  --track-color: linear-gradient(90deg, skyblue 100%, #888888 100%);
+  -webkit-appearance: none;
+  background: transparent;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  background: var(--track-color);
+  border-radius: 10px;
+  border: 0;
+}
+input[type="range"]::-webkit-slider-thumb {
+  border: 4px solid skyblue;
+  height: 18px;
+  width: 18px;
+  border-radius: 10px;
+  background: blue;
+  -webkit-appearance: none;
+  margin-top: -8px;
+  transition: all 0.1s;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+  border: 3px solid red;
+}
+input[type="range"]::-webkit-slider-thumb:active {
+  border: 5px solid red;
+}
+
+input[type="range"]:focus::-webkit-slider-runnable-track {
+  background: var(--track-color);
+}
+
+input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: 4px;
+  background: var(--track-color);
+  border-radius: 10px;
+  border: 0;
+}
+
+input[type="range"]::-moz-range-thumb {
+  border: 4px solid blue;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background: red;
+}
+input[type="range"]::-moz-range-thumb:hover {
+  border: 3px solid red;
+}
+input[type="range"]::-moz-range-thumb:active {
+  border: 5px solid red;
+}

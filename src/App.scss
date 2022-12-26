@@ -1,0 +1,27 @@
+* {
+  user-select: none;
+}
+
+.App {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url(./Resources/Background-Img-Light.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: 500ms;
+}
+
+.transition300ms {
+  transition: 300ms;
+}
+
+#LetsGoButton {
+  background-color: rgb(76, 194, 255);
+  color: black;
+  font-size: 0.9rem;
+}
