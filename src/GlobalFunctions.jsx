@@ -869,8 +869,8 @@ export function iterateFolderStructure(obj, address, toFind = "") {
     }
 
     if (
-      fileFolder.toLowerCase().includes(toFind.toLowerCase()) ||
-      address.toLowerCase().includes(toFind.toLowerCase())
+      fileFolder.toLowerCase().includes(toFind.toLowerCase())
+      // || address.toLowerCase().includes(toFind.toLowerCase())
     ) {
       // let fileExtension = fileFolder.substring(fileFolder.lastIndexOf(".") + 1);
       searchedElements.push({
@@ -880,6 +880,10 @@ export function iterateFolderStructure(obj, address, toFind = "") {
             : extenstionsAndLogo[
                 fileFolder.substring(fileFolder.lastIndexOf(".") + 1)
               ],
+        type:
+          typeof obj[fileFolder] === "object"
+            ? "folder"
+            : fileFolder.substring(fileFolder.lastIndexOf(".") + 1),
         name: fileFolder,
         address: address.replace("\\\\", "\\"),
         size:
@@ -927,17 +931,18 @@ export function renderSearchResults() {
     windowSearchBox.innerText
   );
 
-  // All Searched Results will have keys: logo, name, address, and size(if applicable else it will be null).
+  // All Searched Results will have keys: logo, type, name, address, and size(if applicable else it will be null).
   let totalResults = [...folderStructureResults];
 
   console.log(totalResults);
   for (const SearchedResult of totalResults) {
     let logo = SearchedResult.logo;
+    let type = SearchedResult.type;
     let name = SearchedResult.name;
     let address = SearchedResult.address;
     let size = SearchedResult.size;
     console.log(
-      `logo\t:${logo}\nname\t: ${name}\naddress\t: ${address}\nsize\t: ${size}`
+      `logo\t: ${logo}\ntype\t: ${type}\nname\t: ${name}\naddress\t: ${address}\nsize\t: ${size}`
     );
   }
 }
