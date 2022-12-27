@@ -1,6 +1,6 @@
 import React from "react";
 import "./Settings.scss";
-import Windows from "../Windows";
+import WindowsApp from "../WindowsApp";
 import settingsLogo from "../../../Resources/icon/settings.png";
 import { changeTheme } from "../../../GlobalFunctions";
 import { useEffect } from "react";
@@ -12,7 +12,7 @@ function Settings() {
   }, []);
 
   return (
-    <Windows
+    <WindowsApp
       windowId="settings"
       width="50vw"
       height="50vh"

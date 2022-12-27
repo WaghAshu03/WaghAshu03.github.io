@@ -1,5 +1,5 @@
 import React from "react";
-import "./Windows.scss";
+import "./WindowsApp.scss";
 import {
   closeWindow,
   consoleLog,

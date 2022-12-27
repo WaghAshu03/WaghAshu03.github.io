@@ -1,10 +1,10 @@
 import React from "react";
-import Windows from "../Windows";
+import WindowsApp from "../WindowsApp";
 import terminalLogo from "../../../Resources/icon/terminal.png";
 
 function terminal() {
   return (
-    <Windows
+    <WindowsApp
       windowId="window1"
       width="50vw"
       height="50vh"

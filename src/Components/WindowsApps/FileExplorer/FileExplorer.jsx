@@ -1,11 +1,11 @@
 import React from "react";
 import "./FileExplorer.scss";
-import Windows from "../Windows";
+import WindowsApp from "../WindowsApp";
 import explorerLogo from "../../../Resources/icon/explorer.png";
 
 function FileExplorer() {
   return (
-    <Windows
+    <WindowsApp
       windowId="FileExplorer"
       width="50vw"
       height="50vh"
