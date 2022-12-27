@@ -76,11 +76,17 @@ function WindowsSearch() {
           Pictures
         </div>
       </div>
-      <div className="WindowsSearchResults" id="WindowsSearchResults">
+      <div
+        className="WindowsSearchResultsContainer"
+        id="WindowsSearchResultsContainer"
+      >
         WindowsSearch
       </div>
-      <div className="WindowsSearchSingleResult" id="WindowsSearchSingleResult">
-        WindowsSearch
+      <div
+        className="WindowsSearchSingleResultContainer"
+        id="WindowsSearchSingleResultContainer"
+      >
+        WindowsSingleSearch
       </div>
     </div>
   );

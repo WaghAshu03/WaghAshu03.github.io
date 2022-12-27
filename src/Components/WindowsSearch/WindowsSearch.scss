@@ -69,11 +69,60 @@ $StartMenuWidth: 620px;
   border-bottom: solid 2px #6868e5;
 }
 
-.WindowsSearchResults {
+.WindowsSearchResultsContainer {
+  word-wrap: normal;
+  overflow: hidden;
   padding: 15px;
 }
 
-.WindowsSearchSingleResult {
+.WindowsSearchedResult {
+  // background-color: red;
+  display: grid;
+  grid-template-columns: 30px auto;
+  grid-template-rows: 1.25rem 1.1rem;
+  grid-column-gap: 8px;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.8em;
+  border-bottom: 1px solid #ffffff5f;
+  cursor: pointer;
+}
+// .WindowsSearchedResult:hover {
+//   background-color: #ffffff1f;
+// }
+
+.WindowsSearchedResultLogo {
+  width: 100%;
+  height: 100%;
+  grid-row: 1/3;
+  // background-color: yellow;
+}
+
+.WindowsSearchedResultLabel {
+  width: 100%;
+  height: fit-content;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  // background-color: red;
+}
+
+.WindowsSearchedResultType {
+  width: 100%;
+  height: 100%;
+  height: fit-content;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.8rem;
+  color: #ffffffba;
+}
+.WindowsSearchedResultLogo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.WindowsSearchSingleResultContainer {
   padding: 15px;
   background-color: #181818;
   background-color: #18181844;

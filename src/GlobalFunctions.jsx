@@ -1,7 +1,34 @@
+// Background Images
 import BgLight from "./Resources/Background-Img-Light.jpg";
 import BgDark from "./Resources/Background-Img-Dark.jpg";
+
 import ResizeMin from "./Resources/icon/ui/maximize.png";
 import ResizeMax from "./Resources/icon/ui/maxmin.png";
+
+// Drives
+import cDrive from "./Resources/icon/c-drive.png";
+import Drive from "./Resources/icon/drive.png";
+
+// Folders
+import Folder3dObjects from "./Resources/icon/Folders/3d-objects-folder.png";
+import folder from "./Resources/icon/Folders/folder.png";
+import DesktopFolder from "./Resources/icon/Folders/desktop-folder.png";
+import DocumentsFolder from "./Resources/icon/Folders/documents-folder.png";
+import DownloadsFolder from "./Resources/icon/Folders/downloads-folder.png";
+import MusicFolder from "./Resources/icon/Folders/music-folder.png";
+import PicturesFolder from "./Resources/icon/Folders/pictures-folder.png";
+import OneDriveFolder from "./Resources/icon/Folders/onedrive-folder.png";
+import VideosFolder from "./Resources/icon/Folders/videos-folder.png";
+
+// Extensions
+import UnknownExtensions from "./Resources/icon/Extensions/unknown-extensions.png";
+import CodeExtension from "./Resources/icon/Extensions/code-extensions.png";
+import ImageExtensions from "./Resources/icon/Extensions/image-extensions.png";
+import MusicExtensions from "./Resources/icon/Extensions/music-extensions.png";
+import TextExtensions from "./Resources/icon/Extensions/text-file-extensions.png";
+import VideoExtensions from "./Resources/icon/Extensions/video-extensions.png";
+import WebExtensions from "./Resources/icon/Extensions/web-extensions.png";
+import WordDocExtensions from "./Resources/icon/Extensions/word-doc-extensions.png";
 
 let consoleId = 0;
 export function consoleLog() {
@@ -740,12 +767,12 @@ export const folderStructure = {
         Contacts: {},
         Desktop: {},
         Documents: {},
+        Downloads: {},
         Favourites: {},
-        Links: {},
         OneDrive: {},
         Pictures: {},
-        SavedGames: {},
         Searches: {},
+        Music: {},
         Videos: {},
       },
       Public: {
@@ -753,7 +780,7 @@ export const folderStructure = {
         "Public Downloads": {},
         "Public Music": {},
         "Public Pictures": {},
-        "Public Video": {},
+        "Public Videos": {},
       },
     },
     Windows: {
@@ -870,48 +897,46 @@ export const folderStructure = {
 };
 
 export const extenstionsAndLogo = {
-  unknown: "unknown",
-  txt: "txt",
-  exe: "exe",
-  py: "py",
-  js: "js",
-  jsx: "jsx",
-  json: "json",
-  css: "css",
-  html: "html",
-  png: "png",
-  jpg: "jpg",
-  jpeg: "jpeg",
-  gif: "gif",
-  svg: "svg",
-  ppt: "ppt",
-  pptx: "pptx",
-  pdf: "pdf",
-  docx: "docx",
-  doc: "doc",
-  lnk: "lnk",
-  mp3: "mp3",
-  mp4: "mp4",
+  unknown: UnknownExtensions,
+  txt: TextExtensions,
+  // exe: "exe",
+  py: CodeExtension,
+  js: CodeExtension,
+  ts: CodeExtension,
+  jsx: CodeExtension,
+  tsx: CodeExtension,
+  json: CodeExtension,
+  css: CodeExtension,
+  html: WebExtensions,
+  png: ImageExtensions,
+  jpg: ImageExtensions,
+  jpeg: ImageExtensions,
+  gif: ImageExtensions,
+  svg: ImageExtensions,
+  pdf: WebExtensions,
+  docx: WordDocExtensions,
+  doc: WordDocExtensions,
+  // lnk: "lnk",
+  mp3: MusicExtensions,
+  mp4: VideoExtensions,
 
   // Folder Logos:
-  folder: "folder",
-  "3D Objects": "3D Objects",
-  Contacts: "Contacts",
-  Desktop: "Desktop",
-  Documents: "Documents",
-  Favourites: "Favourites",
-  Links: "Links",
-  OneDrive: "OneDrive",
-  Pictures: "Pictures",
-  SavedGames: "SavedGames",
-  Searches: "Searches",
-  Videos: "Videos",
+  folder: folder,
+  "3D Objects": Folder3dObjects,
+  Desktop: DesktopFolder,
+  Documents: DocumentsFolder,
+  Downloads: DownloadsFolder,
+  // Favourites: "Favourites",
+  OneDrive: OneDriveFolder,
+  Pictures: PicturesFolder,
+  Videos: VideosFolder,
+  Music: MusicFolder,
 
   // Drives:
-  C: "C",
-  D: "D",
-  E: "E",
-  F: "F",
+  C: cDrive,
+  D: Drive,
+  E: Drive,
+  F: Drive,
 };
 
 export function iterateFolderStructure(obj, address, toFind = "") {
@@ -999,6 +1024,13 @@ export function renderSearchResults() {
   // All Searched Results will have keys: logo, type, name, address, and size(if applicable else it will be null).
   let totalResults = [...folderStructureResults];
 
+  let WindowsSearchResultsContainer = document.getElementById(
+    "WindowsSearchResultsContainer"
+  );
+  WindowsSearchResultsContainer.innerHTML = "";
+
+  let WindowsSearchResultNum = 1;
+
   console.log(totalResults);
   for (const SearchedResult of totalResults) {
     let logo = SearchedResult.logo;
@@ -1009,6 +1041,50 @@ export function renderSearchResults() {
     console.log(
       `logo\t: ${logo}\ntype\t: ${type}\nname\t: ${name}\naddress\t: ${address}\nsize\t: ${size}`
     );
+
+    let div = document.createElement("div");
+    div.classList.add("WindowsSearchedResult");
+    div.id = "WindowsSearchedResult" + WindowsSearchResultNum;
+    if (WindowsSearchResultNum === 1) {
+      div.style.borderTop = "1px solid #ffffff5f";
+      div.style.paddingTop = "0.5em";
+    }
+    WindowsSearchResultNum++;
+
+    div.innerHTML = `
+    <div class="WindowsSearchedResultLogo"><img src=${logo} alt=${type} /></div>\
+    <div class="WindowsSearchedResultLabel">${name}</div>\
+    <div class="WindowsSearchedResultType">${type}</div>\
+    `;
+
+    div.title = `${name} (${address})`;
+
+    WindowsSearchResultsContainer.append(div);
+
+    if (WindowsSearchResultNum === 7) {
+      break;
+    }
+  }
+
+  if (windowSearchBox.innerText !== "") {
+    let div = document.createElement("div");
+    div.classList.add("WindowsSearchedResult");
+    div.id = "WindowsSearchedResult" + (WindowsSearchResultNum + 1);
+
+    div.innerHTML = `
+  <div class="WindowsSearchedResultLogo"><img src=${WebExtensions} alt=${"Search"} /></div>\
+  <div class="WindowsSearchedResultLabel">${windowSearchBox.innerText}</div>\
+  <div class="WindowsSearchedResultType">${"See web results"}</div>\
+  `;
+
+    if (totalResults.length === 0) {
+      div.style.borderTop = "1px solid #ffffff5f";
+      div.style.paddingTop = "0.5em";
+      div.style.paddingTop = "0.5em";
+    }
+    div.title = "Search: " + windowSearchBox.innerText;
+
+    WindowsSearchResultsContainer.append(div);
   }
 }
 
