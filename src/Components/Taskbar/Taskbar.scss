@@ -6,11 +6,7 @@
   left: 0;
   width: 100vw;
   height: 45px;
-  backdrop-filter: blur(20px);
-  // resize: horizontal;
-  // resize: both;
-  background-color: #e5ebff;
-  // opacity: 0.8;
+  backdrop-filter: blur(30px);
   z-index: 999999;
   transition: 500ms;
 }

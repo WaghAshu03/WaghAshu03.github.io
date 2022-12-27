@@ -4,6 +4,7 @@ import BgDark from "./Resources/Background-Img-Dark.jpg";
 
 import ResizeMin from "./Resources/icon/ui/maximize.png";
 import ResizeMax from "./Resources/icon/ui/maxmin.png";
+import OpenLink from "./Resources/icon/ui/link.png";
 
 // Drives
 import cDrive from "./Resources/icon/c-drive.png";
@@ -470,7 +471,7 @@ export const changeTheme = () => {
     : "#fff";
 
   document.getElementById("Taskbar").style.backgroundColor = lightTheme
-    ? "#e5eaff"
+    ? "#e5eaffcc"
     : "#242424cc";
   document.getElementById("Taskbar").style.color = lightTheme
     ? "black"
@@ -971,7 +972,7 @@ export function iterateFolderStructure(obj, address, toFind = "") {
         type:
           typeof obj[fileFolder] === "object"
             ? address === ""
-              ? "Drive"
+              ? "drive"
               : "folder"
             : fileFolder.substring(fileFolder.lastIndexOf(".") + 1),
         name: fileFolder,
@@ -1027,6 +1028,11 @@ export function renderSearchResults() {
   let WindowsSearchResultsContainer = document.getElementById(
     "WindowsSearchResultsContainer"
   );
+
+  let WindowsSearchSingleResultContainer = document.getElementById(
+    "WindowsSearchSingleResultContainer"
+  );
+
   WindowsSearchResultsContainer.innerHTML = "";
 
   let WindowsSearchResultNum = 1;
@@ -1035,33 +1041,42 @@ export function renderSearchResults() {
   for (const SearchedResult of totalResults) {
     let logo = SearchedResult.logo;
     let type = SearchedResult.type;
+    if (["folder", "drive"].includes(type))
+      type = type.charAt(0).toUpperCase() + type.slice(1);
     let name = SearchedResult.name;
     let address = SearchedResult.address;
     let size = SearchedResult.size;
-    console.log(
-      `logo\t: ${logo}\ntype\t: ${type}\nname\t: ${name}\naddress\t: ${address}\nsize\t: ${size}`
-    );
 
     let div = document.createElement("div");
     div.classList.add("WindowsSearchedResult");
     div.id = "WindowsSearchedResult" + WindowsSearchResultNum;
+    div.title = `${name} (${address})`;
+
     if (WindowsSearchResultNum === 1) {
       div.style.borderTop = "1px solid #ffffff5f";
       div.style.paddingTop = "0.5em";
     }
-    WindowsSearchResultNum++;
 
     div.innerHTML = `
     <div class="WindowsSearchedResultLogo"><img src=${logo} alt=${type} /></div>\
     <div class="WindowsSearchedResultLabel">${name}</div>\
     <div class="WindowsSearchedResultType">${type}</div>\
     `;
-
-    div.title = `${name} (${address})`;
-
     WindowsSearchResultsContainer.append(div);
 
-    if (WindowsSearchResultNum === 7) {
+    if (WindowsSearchResultNum === 1) {
+      WindowsSearchSingleResultContainer.innerHTML = `
+      <div class="WindowsSearchSingleResultLogo"><img src=${logo} alt=${type} /></div>\
+      <div class="WindowsSearchSingleResultLabel">${name}</div>\
+      <div class="WindowsSearchSingleResultType">${type}</div>\
+      <hr />\
+      <div class="WindowsSearchSingleResultOpen" title="${name} (${address})"><img src=${OpenLink} alt=${"Open"} />Open</div>\
+      `;
+    }
+
+    WindowsSearchResultNum++;
+
+    if (WindowsSearchResultNum - 1 === 6) {
       break;
     }
   }
@@ -1081,11 +1096,41 @@ export function renderSearchResults() {
       div.style.borderTop = "1px solid #ffffff5f";
       div.style.paddingTop = "0.5em";
       div.style.paddingTop = "0.5em";
+
+      WindowsSearchSingleResultContainer.innerHTML = `
+      <div class="WindowsSearchSingleResultLogo"><img src=${WebExtensions} alt=${"Search"} /></div>\
+      <div class="WindowsSearchSingleResultLabel">${
+        windowSearchBox.innerText
+      }</div>\
+      <div class="WindowsSearchSingleResultType">${"Edge"}</div>\
+      <hr />\
+      <div class="WindowsSearchSingleResultOpen"><img src=${OpenLink} alt=${"Open"} />See web results</div>\
+      `;
     }
     div.title = "Search: " + windowSearchBox.innerText;
 
     WindowsSearchResultsContainer.append(div);
+  } else {
+    WindowsSearchSingleResultContainer.innerHTML = "";
   }
+}
+
+// Gets the Folder Structure of a Folder based on given address
+export function getFoldersStructure(address) {
+  address = address.replace(":", "").replace(/\//g, "\\").replace("\\\\", "\\");
+
+  if (address.charAt(address.length - 1) === "\\")
+    address = address.slice(0, -1);
+
+  address = address.split("\\");
+
+  let Result = folderStructure;
+
+  for (let index = 0; index < address.length; index++) {
+    if (index === 0) Result = Result[address[index].toUpperCase()];
+    else Result = Result[address[index]];
+  }
+  return Result;
 }
 
 function GlobalFunctions() {
