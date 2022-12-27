@@ -11,6 +11,7 @@ import EventListners from "./EventListners";
 import SystemTray from "./Components/SystemTray/SystemTray";
 import WindowsSearch from "./Components/WindowsSearch/WindowsSearch";
 import CalenderAndNotifications from "./Components/CalenderAndNotifications/CalenderAndNotifications";
+import FileExplorer from "./Components/Windows/FileExplorer/FileExplorer";
 
 setTimeout(() => {
   document.querySelector("#window1 .window-content").style.backgroundColor =
@@ -37,6 +38,7 @@ function App() {
       <EventListners />
       <SystemTray />
       <CalenderAndNotifications />
+      <FileExplorer />
     </div>
   );
 }

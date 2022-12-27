@@ -13,6 +13,7 @@ import {
 import Windows11Logo from "../../Resources/icon/windows.png";
 import terminalLogo from "../../Resources/icon/terminal.png";
 import settingsLogo from "../../Resources/icon/settings.png";
+import explorerLogo from "../../Resources/icon/explorer.png";
 import WifiIcon from "../../Resources/icon/ui/wifi.png";
 import AudioIcon1 from "../../Resources/icon/ui/audio1.png";
 import AudioIcon2 from "../../Resources/icon/ui/audio2.png";
@@ -58,8 +59,17 @@ function Taskbar() {
           <img src={TaskViewIcon} alt="TaskViewIcon" id="TaskViewIcon" />
         </div>
 
-        <div className="TaskbarIcon" onClick={() => openWindow("window1")}>
+        <div className="TaskbarIcon" onClick={() => openWindow("FileExplorer")}>
           <div>File&nbsp;Explorer</div>
+          <img
+            src={explorerLogo}
+            alt="File Explorer"
+            id="TaskbarFileExplorer"
+          />
+        </div>
+
+        <div className="TaskbarIcon" onClick={() => openWindow("window1")}>
+          <div>Terminal</div>
           <img
             src={terminalLogo}
             alt="Windows 11 Logo"

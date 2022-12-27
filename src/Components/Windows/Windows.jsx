@@ -11,16 +11,6 @@ import CloseIcon from "../../Resources/icon/ui/close.png";
 import ResizeMax from "../../Resources/icon/ui/maxmin.png";
 
 function Window1(props) {
-  setTimeout(() => {
-    if (props.PanelPresent) {
-      document.getElementById(props.windowId).style.gridTemplateRows =
-        "38px 40px auto 25px";
-    } else {
-      document.getElementById(props.windowId).style.gridTemplateRows =
-        "38px auto 25px";
-    }
-  }, 10);
-
   function windowResizeFunction() {
     if (
       document.getElementById(props.windowId).style.width === "100vw" &&
@@ -84,17 +74,6 @@ function Window1(props) {
         </div>
       </div>
 
-      {props.PanelPresent ? (
-        <div
-          className={"window-panel " + props.windowId + "-panel"}
-          id={props.windowId + "-panel"}
-        >
-          {props.panel}
-        </div>
-      ) : (
-        <></>
-      )}
-
       <div
         className={"window-content " + props.windowId + "-content"}
         id={props.windowId + "-content"}
@@ -102,6 +81,7 @@ function Window1(props) {
         {props.content} <br />
         <br />
       </div>
+
       <div
         className={"window-footer " + props.windowId + "-footer"}
         id={props.windowId + "-footer"}

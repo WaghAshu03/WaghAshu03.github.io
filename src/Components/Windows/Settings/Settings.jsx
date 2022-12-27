@@ -17,8 +17,6 @@ function Settings() {
       width="50vw"
       height="50vh"
       top="100px"
-      PanelPresent={true}
-      panel={<>sdf0</>}
       left="100px"
       logo={settingsLogo}
       windowTitle="Settings"

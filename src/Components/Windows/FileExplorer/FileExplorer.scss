@@ -1,0 +1,60 @@
+$FileExplorerPanelHeight: 3.5rem;
+
+.FileExplorer-content {
+  display: grid;
+  grid-template-rows: 3.5rem calc(100% - 3.5rem);
+}
+
+// * {
+//   outline: 1px solid red;
+// }
+
+.FileExplorer-panel {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-bottom: 1px solid white;
+  display: grid;
+  align-items: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.FileExplorer-body {
+  display: grid;
+  grid-template-columns: 12rem auto;
+  grid-template-rows: 3rem auto;
+}
+
+.FileExplorerAddressbarAndOperations {
+  grid-column: 1/3;
+  display: grid;
+  grid-template-columns: 6rem auto 14rem;
+  grid-column-gap: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border-bottom: 1px solid white;
+  align-items: center;
+}
+
+.FileExplorerOperationButtons {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  text-align: center;
+}
+
+.FEAO-Item {
+  height: 50%;
+}
+
+.FileExplorerLeftPanel {
+  border-right: 1px solid white;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.FileExplorerMain {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
