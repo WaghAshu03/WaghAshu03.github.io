@@ -708,33 +708,73 @@ export function toggleCalenderAndNotifications(customInput = "custom-input") {
 
 export const folderStructure = {
   C: {
-    Documents: {
-      Work: {
-        "Report.docx": 8,
-        "Presentation.pptx": 5,
+    PerfLogs: {},
+    "Program Files": {
+      AMD: {},
+      BraveSoftware: {},
+      Git: {},
+      Google: {},
+      "Internet Explorer": {},
+      Java: {},
+      WindowsPowerShell: {},
+      "Notepad++": {},
+    },
+    "Program Files (x86)": {
+      BraveSoftware: {},
+      "Common Files": {},
+      Microsoft: {},
+      MySQL: {},
+      "Windows Defender": {},
+      "Windows Kits": {},
+      "Windows Mail": {},
+      "Windows Media Player": {},
+      "Windows Multimedia Platform": {},
+      "Windows NT": {},
+      "Windows Photo Viewer": {},
+      "Windows Portable Devices": {},
+      WindowsPowerShell: {},
+    },
+    Users: {
+      Ashu: {
+        "3D Objects": {},
+        Contacts: {},
+        Desktop: {},
+        Documents: {},
+        Favourites: {},
+        Links: {},
+        OneDrive: {},
+        Pictures: {},
+        SavedGames: {},
+        Searches: {},
+        Videos: {},
       },
-      Personal: {
-        "Vacation Photos": {
-          "Spain.jpg": 12,
-          "France.jpg": 10,
-        },
+      Public: {
+        "Public Documents": {},
+        "Public Downloads": {},
+        "Public Music": {},
+        "Public Pictures": {},
+        "Public Video": {},
       },
     },
-    Videos: {
-      Movies: {
-        Action: {
-          "Die Hard.mp4": 150,
-          "Lethal Weapon.mp4": 500,
-        },
-        Comedy: {
-          "The Hangover.mp4": 600,
-          "Old Dogs.mp4": 1824,
-        },
-      },
-      "TV Shows": {
-        "Breaking Bad.mp4": 802,
-        "Game of Thrones.mp4": 8007,
-      },
+    Windows: {
+      Boot: {},
+      Fonts: {},
+      Logs: {},
+      Media: {},
+      "Microsoft.NET": {},
+      security: {},
+      ServiceProfiles: {},
+      ServiceState: {},
+      servicing: {},
+      Setup: {},
+      ShellComponents: {},
+      System: {},
+      System32: {},
+      SystemApps: {},
+      SystemResources: {},
+      SystemTemp: {},
+      SysWOW64: {},
+      Temp: {},
     },
   },
   D: {
@@ -830,6 +870,8 @@ export const folderStructure = {
 };
 
 export const extenstionsAndLogo = {
+  unknown: "unknown",
+  txt: "txt",
   exe: "exe",
   py: "py",
   js: "js",
@@ -848,9 +890,28 @@ export const extenstionsAndLogo = {
   docx: "docx",
   doc: "doc",
   lnk: "lnk",
-  folder: "folder",
   mp3: "mp3",
   mp4: "mp4",
+
+  // Folder Logos:
+  folder: "folder",
+  "3D Objects": "3D Objects",
+  Contacts: "Contacts",
+  Desktop: "Desktop",
+  Documents: "Documents",
+  Favourites: "Favourites",
+  Links: "Links",
+  OneDrive: "OneDrive",
+  Pictures: "Pictures",
+  SavedGames: "SavedGames",
+  Searches: "Searches",
+  Videos: "Videos",
+
+  // Drives:
+  C: "C",
+  D: "D",
+  E: "E",
+  F: "F",
 };
 
 export function iterateFolderStructure(obj, address, toFind = "") {
@@ -876,16 +937,20 @@ export function iterateFolderStructure(obj, address, toFind = "") {
       searchedElements.push({
         logo:
           typeof obj[fileFolder] === "object"
-            ? extenstionsAndLogo["folder"]
+            ? extenstionsAndLogo[fileFolder] === undefined
+              ? extenstionsAndLogo["folder"]
+              : extenstionsAndLogo[fileFolder]
             : extenstionsAndLogo[
                 fileFolder.substring(fileFolder.lastIndexOf(".") + 1)
               ],
         type:
           typeof obj[fileFolder] === "object"
-            ? "folder"
+            ? address === ""
+              ? "Drive"
+              : "folder"
             : fileFolder.substring(fileFolder.lastIndexOf(".") + 1),
         name: fileFolder,
-        address: address.replace("\\\\", "\\"),
+        address: address === "" ? "This PC" : address.replace("\\\\", "\\"),
         size:
           typeof obj[fileFolder] === "object"
             ? `${Object.keys(obj[fileFolder]).length} items`
