@@ -7,7 +7,7 @@ $window-header-padding: 10px;
   color: black;
   min-height: 150px;
   overflow: hidden;
-  display: grid;
+  display: none;
   min-width: 480px;
   min-height: 480px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -97,7 +97,7 @@ $window-header-padding: 10px;
   align-items: center;
   // padding: $window-header-padding;
   z-index: 10;
-  background-color: #15a5ff;
+  background-color: #202020;
   color: #fff;
 }
 

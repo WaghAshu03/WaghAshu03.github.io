@@ -3,6 +3,7 @@ $FileExplorerPanelHeight: 3.5rem;
 .FileExplorer-content {
   display: grid;
   grid-template-rows: 3.5rem calc(100% - 3.5rem);
+  background-color: #191919;
 }
 
 // * {
@@ -13,11 +14,13 @@ $FileExplorerPanelHeight: 3.5rem;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #3d3d3f;
   display: grid;
   align-items: center;
   padding-left: 1rem;
   padding-right: 1rem;
+  // background-color: rgb(22, 22, 42);
+  background: linear-gradient(#112, #111126, #111129, #111131);
 }
 
 .FileExplorer-body {
@@ -33,8 +36,24 @@ $FileExplorerPanelHeight: 3.5rem;
   grid-column-gap: 0.5rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #3d3d3f;
   align-items: center;
+}
+
+.FileExplorerAddressbarAndOperations input {
+  background-color: #191919;
+  border: 1px solid #535353;
+}
+.FileExplorerAddressbarAndOperations hover {
+  border: 1px solid #535353;
+}
+.FileExplorerAddressbarAndOperations input:focus {
+  outline: none;
+  border: 1px solid #535353;
+}
+
+.FEAO-Item {
+  height: 50%;
 }
 
 .FileExplorerOperationButtons {
@@ -43,8 +62,75 @@ $FileExplorerPanelHeight: 3.5rem;
   text-align: center;
 }
 
-.FEAO-Item {
-  height: 50%;
+.FileExplorerAddressBar {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.FileExplorerAddressBar > input[type="text"] {
+  width: 100%;
+  height: 100%;
+  color: transparent;
+  cursor: default;
+  padding-left: 2rem;
+}
+.FileExplorerAddressBar > input[type="text"]:focus {
+  color: initial;
+  cursor: text;
+}
+.FileExplorerAddressBar div {
+  white-space: nowrap;
+}
+
+#FEAB-Div {
+  position: absolute;
+  margin-left: 2rem;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  max-width: calc(100% - 2rem);
+  overflow: hidden;
+  // background-color: red;
+  font-size: 0.88rem;
+}
+
+.FEAB-Div-Item-Label,
+.FEAB-Div-Item-Gt {
+  margin-right: 0.08rem;
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+}
+.FEAB-Div-Item-Label:hover,
+.FEAB-Div-Item-Gt:hover {
+  background-color: #ffffff50;
+}
+
+.FileExplorerAddressBar img {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+  padding-left: 0.5rem;
+}
+
+.FileExplorerSearchBar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.FileExplorerSearchBar input {
+  width: 100%;
+  height: 100%;
+}
+.FESB-SearchResults {
+  display: none;
+  position: absolute;
+  top: 8.5rem;
+  background-color: #191919;
+  border: 1px solid #ffffff50;
+  width: 14rem;
+  height: fit-content;
 }
 
 .FileExplorerLeftPanel {
@@ -55,6 +141,40 @@ $FileExplorerPanelHeight: 3.5rem;
 
 .FileExplorerMain {
   width: 100%;
-  height: 100%;
+  height: fit-content;
+  max-height: 100%;
   overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.FileExplorerItem {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  text-align: center;
+  height: fit-content;
+  width: 5.8rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 0.8rem;
+  margin-left: 0.4rem;
+  margin-right: 0.4rem;
+  padding: 5px;
+}
+.FileExplorerItem:hover {
+  background-color: #ffffff1f;
+}
+
+.FileExplorerItem:focus {
+  outline: 1px dotted white;
+}
+
+.FileExplorerItem img {
+  width: 90%;
+}
+
+.FileExplorer-footer {
+  background-color: #000;
 }

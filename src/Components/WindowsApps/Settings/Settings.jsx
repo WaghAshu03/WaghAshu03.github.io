@@ -2,15 +2,10 @@ import React from "react";
 import "./Settings.scss";
 import WindowsApp from "../WindowsApp";
 import settingsLogo from "../../../Resources/icon/settings.png";
-import { changeTheme } from "../../../GlobalFunctions";
+import { changeTheme, extenstionsAndLogo } from "../../../GlobalFunctions";
 import { useEffect } from "react";
 
 function Settings() {
-  useEffect(() => {
-    changeTheme();
-    changeTheme();
-  }, []);
-
   return (
     <WindowsApp
       windowId="settings"
@@ -32,6 +27,7 @@ function Settings() {
             </button>
           </div>
           <div id="set2">
+            <img src={extenstionsAndLogo["folder"]} alt="" />
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas sed,
             saepe voluptate dicta optio eaque laborum modi quo nobis veritatis
             voluptates deleniti officiis repudiandae dignissimos, consectetur

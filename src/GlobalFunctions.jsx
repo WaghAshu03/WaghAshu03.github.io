@@ -30,6 +30,7 @@ import TextExtensions from "./Resources/icon/Extensions/text-file-extensions.png
 import VideoExtensions from "./Resources/icon/Extensions/video-extensions.png";
 import WebExtensions from "./Resources/icon/Extensions/web-extensions.png";
 import WordDocExtensions from "./Resources/icon/Extensions/word-doc-extensions.png";
+import ThisPC from "./Resources/icon/thispc.png";
 
 let consoleId = 0;
 export function consoleLog() {
@@ -739,16 +740,16 @@ export const folderStructure = {
     PerfLogs: {},
     "Program Files": {
       AMD: {},
-      BraveSoftware: {},
+      "Brave Software": {},
       Git: {},
       Google: {},
       "Internet Explorer": {},
       Java: {},
-      WindowsPowerShell: {},
+      "Windows PowerShell": {},
       "Notepad++": {},
     },
     "Program Files (x86)": {
-      BraveSoftware: {},
+      "Brave Software": {},
       "Common Files": {},
       Microsoft: {},
       MySQL: {},
@@ -760,7 +761,7 @@ export const folderStructure = {
       "Windows NT": {},
       "Windows Photo Viewer": {},
       "Windows Portable Devices": {},
-      WindowsPowerShell: {},
+      "Windows PowerShell": {},
     },
     Users: {
       Ashu: {
@@ -791,15 +792,15 @@ export const folderStructure = {
       Media: {},
       "Microsoft.NET": {},
       security: {},
-      ServiceProfiles: {},
-      ServiceState: {},
+      "Service Profiles": {},
+      "Service State": {},
       servicing: {},
       Setup: {},
-      ShellComponents: {},
+      "Shell Components": {},
       System: {},
       System32: {},
       SystemApps: {},
-      SystemResources: {},
+      "System Resources": {},
       SystemTemp: {},
       SysWOW64: {},
       Temp: {},
@@ -835,66 +836,13 @@ export const folderStructure = {
       },
     },
   },
-  E: {
-    Documents: {
-      Work: {
-        "Report.docx": 8,
-        "Presentation.pptx": 5,
-      },
-      Personal: {
-        "Vacation Photos": {
-          "Spain.jpg": 12,
-          "France.jpg": 10,
-        },
-      },
-    },
-    Videos: {
-      Movies: {
-        Action: {
-          "Die Hard.mp4": 150,
-          "Lethal Weapon.mp4": 500,
-        },
-        Comedy: {
-          "The Hangover.mp4": 600,
-          "Old Dogs.mp4": 1024,
-        },
-      },
-      "TV Shows": {
-        "Breaking Bad.mp4": 802,
-        "Game of Thrones.mp4": 87,
-      },
-    },
-  },
-  F: {
-    Documents: {
-      Work: {
-        "Report.docx": 8,
-        "Presentation.pptx": 5,
-      },
-      Personal: {
-        "Vacation Photos": {
-          "Spain.jpg": 12,
-          "France.jpg": 10,
-        },
-      },
-    },
-    Videos: {
-      Movies: {
-        Action: {
-          "Die Hard.mp4": 150,
-          "Lethal Weapon.mp4": 500,
-        },
-        Comedy: {
-          "The Hangover.mp4": 600,
-          "Old Dogs.mp4": 1024,
-        },
-      },
-      "TV Shows": {
-        "Breaking Bad.mp4": 802,
-        "Game of Thrones.mp4": 87,
-      },
-    },
-  },
+};
+
+export const driveName = {
+  C: "Windows",
+  D: "Ashu",
+  E: "Drive",
+  F: "Drive",
 };
 
 export const extenstionsAndLogo = {
@@ -934,6 +882,7 @@ export const extenstionsAndLogo = {
   Music: MusicFolder,
 
   // Drives:
+  "This PC": ThisPC,
   C: cDrive,
   D: Drive,
   E: Drive,
@@ -1117,6 +1066,7 @@ export function renderSearchResults() {
 
 // Gets the Folder Structure of a Folder based on given address
 export function getFoldersStructure(address) {
+  console.log("Getting Folder Structure for " + address);
   address = address.replace(":", "").replace(/\//g, "\\").replace("\\\\", "\\");
 
   if (address.charAt(address.length - 1) === "\\")
@@ -1129,8 +1079,152 @@ export function getFoldersStructure(address) {
   for (let index = 0; index < address.length; index++) {
     if (index === 0) Result = Result[address[index].toUpperCase()];
     else Result = Result[address[index]];
+    if (Result === undefined) return undefined;
   }
   return Result;
+}
+
+export function removeEmptySpacesFromArray(array) {
+  let temp = [];
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] !== "") temp.push(array[i]);
+  }
+  return temp;
+}
+
+let pwd = "This PC";
+export function renderFolder(address = "") {
+  console.log("Rendering Folder " + address);
+  address = address.replace("/", "\\").split("\\");
+  if (address[0] !== "" && !address[0].includes(":")) {
+    address[0] = address[0].toUpperCase() + ":";
+  }
+  address = address.join("\\");
+  if (address === "") address = "This PC";
+
+  let givenFolderStructure = ["", "This PC"].includes(address)
+    ? folderStructure
+    : getFoldersStructure(address);
+  let FileExplorerMain = document.getElementById("FileExplorerMain");
+
+  if (givenFolderStructure !== undefined) {
+    pwd = address;
+    FileExplorerMain.innerHTML = "";
+    for (const item in givenFolderStructure) {
+      let ItemLogo =
+        typeof givenFolderStructure[item] === "object"
+          ? extenstionsAndLogo[item] === undefined
+            ? extenstionsAndLogo["folder"]
+            : extenstionsAndLogo[item]
+          : extenstionsAndLogo[item.substring(item.lastIndexOf(".") + 1)];
+
+      let div = document.createElement("div");
+      div.classList.add("FileExplorerItem");
+      div.innerHTML = ["C", "D", "E", "F"].includes(item)
+        ? `<img src=${ItemLogo} alt=${item}/><div>${driveName[item]} (${item}:)</div>`
+        : `<img src=${ItemLogo} alt=${item}/><div>${item}</div>`;
+
+      if (typeof givenFolderStructure[item] === "object") {
+        console.log(
+          (address + "\\" + item)
+            .replace("/", "\\")
+            .replace("This PC\\", "")
+            .replace("\\\\", "\\")
+        );
+
+        div.onclick = () => {
+          let folderAddress = (address + "\\" + item)
+            .replace("/", "\\")
+            .replace("This PC\\", "")
+            .replace("\\\\", "\\");
+
+          renderFolder(folderAddress);
+        };
+      }
+
+      FileExplorerMain.append(div);
+    }
+
+    // Setting Up Address Bar
+    let finalAddress =
+      address === ""
+        ? "This PC"
+        : address.length === 1
+        ? address + ":"
+        : address;
+    document.querySelector(".FileExplorerAddressBar input").value =
+      finalAddress;
+    finalAddress =
+      finalAddress === "This PC"
+        ? ""
+        : finalAddress.replace(":", "").split("\\");
+
+    if (typeof finalAddress !== "string")
+      finalAddress = removeEmptySpacesFromArray(finalAddress);
+
+    let AddressBarDiv = document.querySelector("#FEAB-Div");
+    AddressBarDiv.innerHTML = "";
+    let div = document.createElement("div");
+    div.classList.add("#FEAB-Div-Item");
+    div.innerHTML = `<div class="FEAB-Div-Item-Gt">&gt;</div><div class="FEAB-Div-Item-Label">This PC</div><div class="FEAB-Div-Item-Gt">&gt;</div>`;
+    div.style.display = "flex";
+    div.onclick = () => renderFolder("");
+    AddressBarDiv.append(div);
+
+    for (let i = 0; i < finalAddress.length; i++) {
+      let combinedAddress = "";
+      for (let j = 0; j < i + 1; j++) {
+        if (j === 0) combinedAddress = finalAddress[j] + ":\\";
+        else combinedAddress = combinedAddress + finalAddress[j] + "\\";
+      }
+
+      let div = document.createElement("div");
+      div.classList.add("#FEAB-Div-Item");
+      let divLabel =
+        i === 0
+          ? driveName[finalAddress[0]] + ` (${finalAddress[0]}:)`
+          : finalAddress[i];
+      //
+
+      div.innerHTML = `\
+      <div class="FEAB-Div-Item-Label">${divLabel}</div>\
+      <div class="FEAB-Div-Item-Gt">&gt;</div>`;
+      div.style.display = "flex";
+
+      if (i !== finalAddress.length - 1)
+        div.onclick = () => renderFolder(combinedAddress);
+
+      if (finalAddress[i].trim() !== "") AddressBarDiv.append(div);
+    }
+
+    console.log("--------------------");
+    // File Explorer Header Icon and Text
+    let folderName =
+      typeof finalAddress === "string"
+        ? "This PC"
+        : finalAddress[finalAddress.length - 1];
+
+    let folderNameImgSrc =
+      extenstionsAndLogo[folderName] === undefined
+        ? extenstionsAndLogo["folder"]
+        : extenstionsAndLogo[folderName];
+    document.querySelector(".FileExplorerAddressBar img").src =
+      folderNameImgSrc;
+    document.getElementById("FileExplorer-header-logo-img").src =
+      folderNameImgSrc;
+    document.getElementById("FileExplorer-header-text").innerText = [
+      "C",
+      "D",
+      "E",
+      "F",
+    ].includes(folderName)
+      ? driveName[folderName] + ` (${folderName}:)`
+      : folderName;
+
+    console.log({ pwd });
+  } else {
+    window.alert("Invalid Address");
+  }
 }
 
 function GlobalFunctions() {

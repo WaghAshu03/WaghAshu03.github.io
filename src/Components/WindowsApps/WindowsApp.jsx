@@ -10,7 +10,7 @@ import MinimizeIcon from "../../Resources/icon/ui/minimize.png";
 import CloseIcon from "../../Resources/icon/ui/close.png";
 import ResizeMax from "../../Resources/icon/ui/maxmin.png";
 
-function Window1(props) {
+function Window(props) {
   function windowResizeFunction() {
     if (
       document.getElementById(props.windowId).style.width === "100vw" &&
@@ -47,11 +47,17 @@ function Window1(props) {
       >
         <img
           className="window-header-logo"
+          id={props.windowId + "-header-logo-img"}
           draggable="false"
           src={props.logo}
           alt=""
         />
-        <div className="window-header-text">{props.windowTitle}</div>
+        <div
+          className="window-header-text"
+          id={props.windowId + "-header-text"}
+        >
+          {props.windowTitle}
+        </div>
         <div
           className="WindowHeaderIcon"
           onClick={() => {
@@ -92,4 +98,4 @@ function Window1(props) {
   );
 }
 
-export default Window1;
+export default Window;
