@@ -10,9 +10,11 @@ import MinimizeIcon from "../../Resources/icon/ui/minimize.png";
 import CloseIcon from "../../Resources/icon/ui/close.png";
 import ResizeMax from "../../Resources/icon/ui/maxmin.png";
 
+let snapLayoutsTransition = 350; // In ms(milliseconds)
+
 export function WindowResizeLeftHalf(windowId) {
   let AppWindow = document.getElementById(windowId);
-  AppWindow.style.transition = "200ms";
+  AppWindow.style.transition = snapLayoutsTransition + "ms";
   AppWindow.style.left = "0";
   AppWindow.style.top = "0";
   AppWindow.style.width = "50vw";
@@ -20,12 +22,12 @@ export function WindowResizeLeftHalf(windowId) {
   setTimeout(() => {
     AppWindow.style.transition = "";
     document.getElementById(windowId + "-ResizeButton").src = ResizeMax;
-  }, 200);
+  }, snapLayoutsTransition);
 }
 
 export function WindowResizeLeft60(windowId) {
   let AppWindow = document.getElementById(windowId);
-  AppWindow.style.transition = "200ms";
+  AppWindow.style.transition = snapLayoutsTransition + "ms";
   AppWindow.style.left = "0";
   AppWindow.style.top = "0";
   AppWindow.style.width = "60vw";
@@ -33,12 +35,12 @@ export function WindowResizeLeft60(windowId) {
   setTimeout(() => {
     AppWindow.style.transition = "";
     document.getElementById(windowId + "-ResizeButton").src = ResizeMax;
-  }, 200);
+  }, snapLayoutsTransition);
 }
 
 export function WindowResizeRightHalf(windowId) {
   let AppWindow = document.getElementById(windowId);
-  AppWindow.style.transition = "200ms";
+  AppWindow.style.transition = snapLayoutsTransition + "ms";
   AppWindow.style.left = "50%";
   AppWindow.style.top = "0";
   AppWindow.style.width = "50vw";
@@ -46,12 +48,12 @@ export function WindowResizeRightHalf(windowId) {
   setTimeout(() => {
     AppWindow.style.transition = "";
     document.getElementById(windowId + "-ResizeButton").src = ResizeMax;
-  }, 200);
+  }, snapLayoutsTransition);
 }
 
 export function WindowResizeRight40(windowId) {
   let AppWindow = document.getElementById(windowId);
-  AppWindow.style.transition = "200ms";
+  AppWindow.style.transition = snapLayoutsTransition + "ms";
   AppWindow.style.left = "60%";
   AppWindow.style.top = "0";
   AppWindow.style.width = "40vw";
@@ -59,12 +61,12 @@ export function WindowResizeRight40(windowId) {
   setTimeout(() => {
     AppWindow.style.transition = "";
     document.getElementById(windowId + "-ResizeButton").src = ResizeMax;
-  }, 200);
+  }, snapLayoutsTransition);
 }
 
 export function WindowResizeTopLeftQuarter(windowId) {
   let AppWindow = document.getElementById(windowId);
-  AppWindow.style.transition = "200ms";
+  AppWindow.style.transition = snapLayoutsTransition + "ms";
   AppWindow.style.left = "0";
   AppWindow.style.top = "0";
   AppWindow.style.width = "50vw";
@@ -72,12 +74,12 @@ export function WindowResizeTopLeftQuarter(windowId) {
   setTimeout(() => {
     AppWindow.style.transition = "";
     document.getElementById(windowId + "-ResizeButton").src = ResizeMax;
-  }, 200);
+  }, snapLayoutsTransition);
 }
 
 export function WindowResizeBottomLeftQuarter(windowId) {
   let AppWindow = document.getElementById(windowId);
-  AppWindow.style.transition = "200ms";
+  AppWindow.style.transition = snapLayoutsTransition + "ms";
   AppWindow.style.left = 0;
   AppWindow.style.top = "calc(50% - 22px)";
   AppWindow.style.width = "50vw";
@@ -85,12 +87,12 @@ export function WindowResizeBottomLeftQuarter(windowId) {
   setTimeout(() => {
     AppWindow.style.transition = "";
     document.getElementById(windowId + "-ResizeButton").src = ResizeMax;
-  }, 200);
+  }, snapLayoutsTransition);
 }
 
 export function WindowResizeTopRightQuarter(windowId) {
   let AppWindow = document.getElementById(windowId);
-  AppWindow.style.transition = "200ms";
+  AppWindow.style.transition = snapLayoutsTransition + "ms";
   AppWindow.style.left = "50%";
   AppWindow.style.top = "0";
   AppWindow.style.width = "50vw";
@@ -98,12 +100,12 @@ export function WindowResizeTopRightQuarter(windowId) {
   setTimeout(() => {
     AppWindow.style.transition = "";
     document.getElementById(windowId + "-ResizeButton").src = ResizeMax;
-  }, 200);
+  }, snapLayoutsTransition);
 }
 
 export function WindowResizeBottomRightQuarter(windowId) {
   let AppWindow = document.getElementById(windowId);
-  AppWindow.style.transition = "200ms";
+  AppWindow.style.transition = snapLayoutsTransition + "ms";
   AppWindow.style.left = "50%";
   AppWindow.style.top = "calc(50% - 22px)";
   AppWindow.style.width = "50vw";
@@ -111,7 +113,7 @@ export function WindowResizeBottomRightQuarter(windowId) {
   setTimeout(() => {
     AppWindow.style.transition = "";
     document.getElementById(windowId + "-ResizeButton").src = ResizeMax;
-  }, 200);
+  }, snapLayoutsTransition);
 }
 
 function Window(props) {
