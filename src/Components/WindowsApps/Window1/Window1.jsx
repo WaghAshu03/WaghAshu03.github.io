@@ -8,8 +8,8 @@ function terminal() {
       windowId="window1"
       width="50vw"
       height="50vh"
-      top="0px"
-      left="0px"
+      top="0"
+      left="0"
       logo={terminalLogo}
       windowTitle="Console"
       panel={<>Panel</>}

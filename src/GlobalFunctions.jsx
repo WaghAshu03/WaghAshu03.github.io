@@ -113,6 +113,7 @@ export function closeFullscreen() {
   console.log("Closed Full Screen");
 }
 
+let currentZIndex = 100;
 export function initDragElement() {
   var pos1 = 0,
     pos2 = 0,
@@ -120,7 +121,6 @@ export function initDragElement() {
     pos4 = 0;
   var windows = document.getElementsByClassName("window");
   var elmnt = null;
-  var currentZIndex = 100; //TODO reset z index when a threshold is passed
 
   for (var i = 0; i < windows.length; i++) {
     var window = windows[i];
@@ -273,6 +273,8 @@ export function iterateQuery(givenQuery, iteratingFunction) {
 
 export function openWindow(windowID) {
   let windowEle = document.getElementById(windowID);
+  currentZIndex++;
+  windowEle.style.zIndex = currentZIndex;
   if (windowEle.style.display === "none") {
     windowEle.style.transform = `scale(0.9)`;
     windowEle.style.display = "grid";
