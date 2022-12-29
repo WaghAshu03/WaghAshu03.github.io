@@ -10,6 +10,110 @@ import MinimizeIcon from "../../Resources/icon/ui/minimize.png";
 import CloseIcon from "../../Resources/icon/ui/close.png";
 import ResizeMax from "../../Resources/icon/ui/maxmin.png";
 
+export function WindowResizeLeftHalf(windowId) {
+  let AppWindow = document.getElementById(windowId);
+  AppWindow.style.transition = "200ms";
+  AppWindow.style.left = "0";
+  AppWindow.style.top = "0";
+  AppWindow.style.width = "50vw";
+  AppWindow.style.height = `calc(100vh - 45px)`;
+  setTimeout(() => {
+    AppWindow.style.transition = "";
+    document.getElementById(windowId + "-ResizeButton").src = ResizeMax;
+  }, 200);
+}
+
+export function WindowResizeLeft60(windowId) {
+  let AppWindow = document.getElementById(windowId);
+  AppWindow.style.transition = "200ms";
+  AppWindow.style.left = "0";
+  AppWindow.style.top = "0";
+  AppWindow.style.width = "60vw";
+  AppWindow.style.height = `calc(100vh - 45px)`;
+  setTimeout(() => {
+    AppWindow.style.transition = "";
+    document.getElementById(windowId + "-ResizeButton").src = ResizeMax;
+  }, 200);
+}
+
+export function WindowResizeRightHalf(windowId) {
+  let AppWindow = document.getElementById(windowId);
+  AppWindow.style.transition = "200ms";
+  AppWindow.style.left = "50%";
+  AppWindow.style.top = "0";
+  AppWindow.style.width = "50vw";
+  AppWindow.style.height = `calc(100vh - 45px)`;
+  setTimeout(() => {
+    AppWindow.style.transition = "";
+    document.getElementById(windowId + "-ResizeButton").src = ResizeMax;
+  }, 200);
+}
+
+export function WindowResizeRight40(windowId) {
+  let AppWindow = document.getElementById(windowId);
+  AppWindow.style.transition = "200ms";
+  AppWindow.style.left = "60%";
+  AppWindow.style.top = "0";
+  AppWindow.style.width = "40vw";
+  AppWindow.style.height = `calc(100vh - 45px)`;
+  setTimeout(() => {
+    AppWindow.style.transition = "";
+    document.getElementById(windowId + "-ResizeButton").src = ResizeMax;
+  }, 200);
+}
+
+export function WindowResizeTopLeftQuarter(windowId) {
+  let AppWindow = document.getElementById(windowId);
+  AppWindow.style.transition = "200ms";
+  AppWindow.style.left = "0";
+  AppWindow.style.top = "0";
+  AppWindow.style.width = "50vw";
+  AppWindow.style.height = `calc(((100vh - 45px)/2) + 0.1rem)`;
+  setTimeout(() => {
+    AppWindow.style.transition = "";
+    document.getElementById(windowId + "-ResizeButton").src = ResizeMax;
+  }, 200);
+}
+
+export function WindowResizeBottomLeftQuarter(windowId) {
+  let AppWindow = document.getElementById(windowId);
+  AppWindow.style.transition = "200ms";
+  AppWindow.style.left = 0;
+  AppWindow.style.top = "calc(50% - 22px)";
+  AppWindow.style.width = "50vw";
+  AppWindow.style.height = `calc((100vh - 45px)/2)`;
+  setTimeout(() => {
+    AppWindow.style.transition = "";
+    document.getElementById(windowId + "-ResizeButton").src = ResizeMax;
+  }, 200);
+}
+
+export function WindowResizeTopRightQuarter(windowId) {
+  let AppWindow = document.getElementById(windowId);
+  AppWindow.style.transition = "200ms";
+  AppWindow.style.left = "50%";
+  AppWindow.style.top = "0";
+  AppWindow.style.width = "50vw";
+  AppWindow.style.height = `calc((100vh - 45px)/2  + 0.1rem)`;
+  setTimeout(() => {
+    AppWindow.style.transition = "";
+    document.getElementById(windowId + "-ResizeButton").src = ResizeMax;
+  }, 200);
+}
+
+export function WindowResizeBottomRightQuarter(windowId) {
+  let AppWindow = document.getElementById(windowId);
+  AppWindow.style.transition = "200ms";
+  AppWindow.style.left = "50%";
+  AppWindow.style.top = "calc(50% - 22px)";
+  AppWindow.style.width = "50vw";
+  AppWindow.style.height = `calc((100vh - 45px)/2)`;
+  setTimeout(() => {
+    AppWindow.style.transition = "";
+    document.getElementById(windowId + "-ResizeButton").src = ResizeMax;
+  }, 200);
+}
+
 function Window(props) {
   function windowResizeFunction() {
     if (
@@ -61,14 +165,73 @@ function Window(props) {
         <div
           className="WindowHeaderIcon"
           onClick={() => {
-            // closeWindow(props.windowId);
             minimizeWindow(props.windowId);
           }}
         >
           <img src={MinimizeIcon} alt="" />
         </div>
-        <button className="WindowHeaderIcon" onClick={windowResizeFunction}>
-          <img src={ResizeMax} id={props.windowId + "-ResizeButton"} alt="" />
+        <button className="WindowHeaderIcon WindowHeaderIconResize">
+          <div
+            className="WindowHeaderIconResizeImageContainer"
+            onClick={windowResizeFunction}
+          >
+            <img src={ResizeMax} id={props.windowId + "-ResizeButton"} alt="" />
+          </div>
+          <div className="WindowHeaderIconResizeBridge"></div>
+          <div className="WindowHeaderIconResizeBox">
+            <div className="WindowHeaderIconResizeBoxOption WindowHeaderIconResizeBoxOption1">
+              <div
+                className="WindowHeaderIconResizeBoxOption1-1"
+                onClick={() => WindowResizeLeftHalf(props.windowId)}
+              ></div>
+              <div
+                className="WindowHeaderIconResizeBoxOption1-2"
+                onClick={() => WindowResizeRightHalf(props.windowId)}
+              ></div>
+            </div>
+            <div className="WindowHeaderIconResizeBoxOption WindowHeaderIconResizeBoxOption2">
+              <div
+                className="WindowHeaderIconResizeBoxOption2-1"
+                onClick={() => WindowResizeLeft60(props.windowId)}
+              ></div>
+              <div
+                className="WindowHeaderIconResizeBoxOption2-2"
+                onClick={() => WindowResizeRight40(props.windowId)}
+              ></div>
+            </div>
+            <div className="WindowHeaderIconResizeBoxOption WindowHeaderIconResizeBoxOption3">
+              <div
+                className="WindowHeaderIconResizeBoxOption3-1"
+                onClick={() => WindowResizeLeftHalf(props.windowId)}
+              ></div>
+              <div
+                className="WindowHeaderIconResizeBoxOption3-2"
+                onClick={() => WindowResizeTopRightQuarter(props.windowId)}
+              ></div>
+              <div
+                className="WindowHeaderIconResizeBoxOption3-3"
+                onClick={() => WindowResizeBottomRightQuarter(props.windowId)}
+              ></div>
+            </div>
+            <div className="WindowHeaderIconResizeBoxOption WindowHeaderIconResizeBoxOption4">
+              <div
+                className="WindowHeaderIconResizeBoxOption4-1"
+                onClick={() => WindowResizeTopLeftQuarter(props.windowId)}
+              ></div>
+              <div
+                className="WindowHeaderIconResizeBoxOption4-2"
+                onClick={() => WindowResizeTopRightQuarter(props.windowId)}
+              ></div>
+              <div
+                className="WindowHeaderIconResizeBoxOption4-3"
+                onClick={() => WindowResizeBottomLeftQuarter(props.windowId)}
+              ></div>
+              <div
+                className="WindowHeaderIconResizeBoxOption4-4"
+                onClick={() => WindowResizeBottomRightQuarter(props.windowId)}
+              ></div>
+            </div>
+          </div>
         </button>
         <div
           className="WindowHeaderIcon WindowHeaderIconClose"
