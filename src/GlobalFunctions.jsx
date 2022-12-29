@@ -1135,12 +1135,14 @@ export function renderSearchResults() {
       div.onclick = () => {
         clickWindowsSearch(false);
         setTimeout(() => {
-          openWindow("FileExplorer");
-        }, 135);
-        setTimeout(() => {
           renderFolder(
             ["This PC", ""].includes(address) ? name : address + "\\" + name
           );
+        }, 135);
+
+        setTimeout(() => {
+          openWindow("FileExplorer");
+          windowResize("FileExplorer");
         }, 140);
       };
     }
@@ -1171,13 +1173,15 @@ export function renderSearchResults() {
           () => {
             clickWindowsSearch(false);
             setTimeout(() => {
-              openWindow("FileExplorer");
-            }, 150);
-            setTimeout(() => {
               renderFolder(
                 ["This PC", ""].includes(address) ? name : address + "\\" + name
               );
-            }, 155);
+            }, 135);
+
+            setTimeout(() => {
+              openWindow("FileExplorer");
+              windowResize("FileExplorer");
+            }, 140);
           };
       }
     }
