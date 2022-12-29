@@ -1131,9 +1131,15 @@ export function renderSearchResults() {
     div.title = `${name} (${address})`;
     if (["Folder", "Drive"].includes(type)) {
       div.onclick = () => {
-        renderFolder(address + "\\" + name);
-        openWindow("FileExplorer");
         clickWindowsSearch(false);
+        setTimeout(() => {
+          openWindow("FileExplorer");
+        }, 135);
+        setTimeout(() => {
+          renderFolder(
+            ["This PC", ""].includes(address) ? name : address + "\\" + name
+          );
+        }, 140);
       };
     }
 
@@ -1161,9 +1167,15 @@ export function renderSearchResults() {
       if (["Folder", "Drive"].includes(type)) {
         document.querySelector(".WindowsSearchSingleResultOpen").onclick =
           () => {
-            renderFolder(address + "\\" + name);
-            openWindow("FileExplorer");
             clickWindowsSearch(false);
+            setTimeout(() => {
+              openWindow("FileExplorer");
+            }, 150);
+            setTimeout(() => {
+              renderFolder(
+                ["This PC", ""].includes(address) ? name : address + "\\" + name
+              );
+            }, 155);
           };
       }
     }
@@ -1489,7 +1501,7 @@ export function renderFolder(address = "", BackOrForwardButtonPressed = false) {
 
     console.log({ pwd, address });
   } else {
-    window.alert("Invalid Address");
+    window.alert("Invalid Address " + address);
   }
 }
 
