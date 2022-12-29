@@ -5,6 +5,8 @@ import {
   clickStart,
   toggleCalenderAndNotifications,
   renderFolder,
+  folderAddressBack,
+  folderAddressFoward,
 } from "./GlobalFunctions";
 // import { useEffect } from "react";
 
@@ -38,6 +40,18 @@ setTimeout(() => {
 
   document.querySelector(".FileExplorerAddressBar input").value = "This PC";
   renderFolder();
+  while (folderAddressBack.length > 0) {
+    folderAddressBack.pop();
+  }
+  while (folderAddressFoward.length > 0) {
+    folderAddressFoward.pop();
+  }
+  document.getElementById("FileExplorerBackButton").style.filter = `invert(${
+    folderAddressBack.length === 0 ? 0.5 : 0
+  })`;
+  document.getElementById("FileExplorerForwardButton").style.filter = `invert(${
+    folderAddressFoward.length === 0 ? 0.5 : 0
+  })`;
 
   document
     .querySelector(".FileExplorerAddressBar input")

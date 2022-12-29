@@ -1,26 +1,56 @@
 $FileExplorerPanelHeight: 3.5rem;
 
+#FileExplorer-header {
+  background-color: #1d1f28;
+}
+
 .FileExplorer-content {
   display: grid;
   grid-template-rows: 3.5rem calc(100% - 3.5rem);
   background-color: #191919;
 }
 
-// * {
-//   outline: 1px solid red;
-// }
-
 .FileExplorer-panel {
-  width: 100%;
   height: 100%;
   overflow: hidden;
   border-bottom: 1px solid #3d3d3f;
-  display: grid;
+  display: flex;
   align-items: center;
   padding-left: 1rem;
   padding-right: 1rem;
-  // background-color: rgb(22, 22, 42);
-  background: linear-gradient(#112, #111126, #111129, #111131);
+  background: linear-gradient(#171929, #17192c, #17192f, #171930);
+}
+
+.FEP-Items {
+  height: 60%;
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid #ffffff5f;
+  padding-right: 0.5rem;
+}
+
+.FEP-Items div {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 6px;
+  padding-right: 6px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  margin-right: 0.4rem;
+  margin-left: 0.4rem;
+  transition: 250ms;
+}
+
+.FEP-Items div:hover {
+  background-color: #ffffff1f;
+}
+
+.FileExplorer-panel img {
+  height: 55%;
+  width: 1.15rem;
+  object-fit: contain;
 }
 
 .FileExplorer-body {
@@ -38,12 +68,15 @@ $FileExplorerPanelHeight: 3.5rem;
   padding-right: 0.5rem;
   border-bottom: 1px solid #3d3d3f;
   align-items: center;
+  height: 100%;
 }
 
 .FileExplorerAddressbarAndOperations input {
   background-color: #191919;
-  border: 1px solid #535353;
+  border: 1px solid #cccccc;
+  height: 100%;
 }
+
 .FileExplorerAddressbarAndOperations hover {
   border: 1px solid #535353;
 }
@@ -53,13 +86,30 @@ $FileExplorerPanelHeight: 3.5rem;
 }
 
 .FEAO-Item {
-  height: 50%;
+  height: 65%;
 }
 
 .FileExplorerOperationButtons {
   display: grid;
   grid-template-columns: auto auto auto;
   text-align: center;
+}
+
+.FileExplorerOperationButton {
+  // background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70%;
+}
+
+.FileExplorerOperationButton img {
+  height: 55%;
+  filter: invert(1);
+}
+
+.FileExplorerOperationButtonLight img {
+  filter: invert(0.26);
 }
 
 .FileExplorerAddressBar {
@@ -78,6 +128,11 @@ $FileExplorerPanelHeight: 3.5rem;
   color: initial;
   cursor: text;
 }
+
+.FileExplorerAddressBarLight > input[type="text"]:focus {
+  color: black;
+}
+
 .FileExplorerAddressBar div {
   white-space: nowrap;
 }
@@ -89,19 +144,33 @@ $FileExplorerPanelHeight: 3.5rem;
   align-items: center;
   height: 100%;
   max-width: calc(100% - 2rem);
-  overflow: hidden;
+  overflow: scroll;
   // background-color: red;
   font-size: 0.88rem;
+  scrollbar-width: none;
+}
+#FEAB-Div::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+scrollbar {
+  width: 0;
 }
 
 .FEAB-Div-Item-Label,
 .FEAB-Div-Item-Gt {
-  margin-right: 0.08rem;
+  margin-right: 0.05rem;
   padding-left: 0.2rem;
   padding-right: 0.2rem;
+  font-size: 0.85rem;
 }
-.FEAB-Div-Item-Label:hover,
-.FEAB-Div-Item-Gt:hover {
+
+.FEAB-Div-Item div {
+  transition: 250ms;
+}
+
+.FEAB-Div-Item:hover div {
   background-color: #ffffff50;
 }
 
@@ -110,7 +179,7 @@ $FileExplorerPanelHeight: 3.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80%;
+  height: 55%;
   padding-left: 0.5rem;
 }
 
@@ -122,7 +191,22 @@ $FileExplorerPanelHeight: 3.5rem;
 .FileExplorerSearchBar input {
   width: 100%;
   height: 100%;
+  padding-left: 1.8rem;
 }
+.FESB-SearchIcon {
+  position: absolute;
+  height: 2rem;
+  padding-left: 0.5rem;
+  // background-color: red;
+  display: flex;
+  align-items: center;
+}
+
+.FESB-SearchIcon img {
+  height: 45%;
+  filter: invert(0.5);
+}
+
 .FESB-SearchResults {
   display: none;
   position: absolute;
@@ -137,44 +221,137 @@ $FileExplorerPanelHeight: 3.5rem;
   border-right: 1px solid white;
   overflow-y: auto;
   overflow-x: hidden;
+  scrollbar-width: 0;
+  padding-top: 0.55rem;
+  // padding-left: 0.6rem;
+}
+.FileExplorerLeftPanel::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.FileExplorerLeftPanel hr {
+  width: 90%;
+  border: none;
+  border-bottom: 1px solid #444;
+  // border-color: gray;
+}
+
+.LeftPanelItem {
+  margin-bottom: 0.1rem;
+  height: 1.4rem;
+  display: flex;
+  align-items: center;
+  padding-top: 0.15rem;
+  padding-bottom: 0.15rem;
+  padding-left: 0.6rem;
+  white-space: nowrap;
+}
+.LeftPanelItem img {
+  height: 75%;
+}
+#LeftPanelItem-C,
+#LeftPanelItem-D {
+  padding-left: 1.6rem;
+}
+
+.LeftPanelItem-Image {
+  margin-right: 0.4rem;
+  margin-left: 0.46rem;
+}
+
+.DownArrowTailless {
+  max-height: 46.5%;
+  filter: invert(1);
+}
+.DownArrowTailless-Closed {
+  transform: rotate(-90deg);
+  filter: invert(0.5);
+}
+
+.LeftPanelItem:hover {
+  background-color: #ffffff1f;
+  cursor: pointer;
 }
 
 .FileExplorerMain {
-  width: 100%;
   height: fit-content;
-  max-height: 100%;
+  max-height: calc(100% - 0.6rem);
   overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-left: 1rem;
+  padding-top: 0.6rem;
 }
+
+// .ThisPC-Main-Labels:hover {
+//   background-color: #ffffff4f;
+// }
 
 .FileExplorerItem {
   overflow: hidden;
   text-overflow: ellipsis;
   word-wrap: break-word;
-  text-align: center;
-  height: fit-content;
-  width: 5.8rem;
+  // white-space: nowrap;
+  // text-align: ;
+  height: 3.2rem;
+  width: 16rem;
+  // width: 100%;
   display: flex;
   align-items: center;
-  flex-direction: column;
-  margin: 0.8rem;
+  align-self: flex-end;
+  margin: 0.2rem;
   margin-left: 0.4rem;
   margin-right: 0.4rem;
-  padding: 5px;
+  padding: 0.3rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  font-size: 0.9rem;
+  // display: inline-block;
 }
 .FileExplorerItem:hover {
-  background-color: #ffffff1f;
+  background-color: #ffffff30;
 }
 
-.FileExplorerItem:focus {
-  outline: 1px dotted white;
+.FileExplorerItem[is-focused="true"] {
+  background-color: #ffffff5f;
 }
 
 .FileExplorerItem img {
-  width: 90%;
+  height: 90%;
+  margin-right: 0.4rem;
+  margin-left: 0.1rem;
+}
+
+.DriveSize {
+  display: grid;
+  width: 12.5rem;
+  // grid-template-columns: auto auto;
+  background-color: white;
+  height: 1rem;
+  // border: 1px solid #bbb;
+  outline: 1px solid #bbb;
+}
+
+.DriveSizeUsed,
+.DriveSizeFree {
+  height: 1rem;
+  display: flex;
+  align-items: center;
+  // background-color: red;
+}
+.DriveSizeUsed {
+  background-color: #26a0da;
+}
+
+.DriveSizeText {
+  font-size: 0.8rem;
+  color: #a0a0a0;
 }
 
 .FileExplorer-footer {
   background-color: #000;
+  padding-left: 0.5rem;
 }

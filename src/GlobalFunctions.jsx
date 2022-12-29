@@ -20,6 +20,7 @@ import MusicFolder from "./Resources/icon/Folders/music-folder.png";
 import PicturesFolder from "./Resources/icon/Folders/pictures-folder.png";
 import OneDriveFolder from "./Resources/icon/Folders/onedrive-folder.png";
 import VideosFolder from "./Resources/icon/Folders/videos-folder.png";
+import DownArrowTailless from "./Resources/icon/ui/down-arrow-tailless.svg";
 
 // Extensions
 import UnknownExtensions from "./Resources/icon/Extensions/unknown-extensions.png";
@@ -374,6 +375,26 @@ export function closeWindow(windowID) {
         scaleSize = 0.92;
         windowEle.style.transform = `scale(${scaleSize})`;
         windowEle.style.display = "none";
+        if (windowID === "FileExplorer") {
+          renderFolder();
+          while (folderAddressBack.length > 0) {
+            folderAddressBack.pop();
+          }
+          while (folderAddressFoward.length > 0) {
+            folderAddressFoward.pop();
+          }
+
+          document.getElementById(
+            "FileExplorerBackButton"
+          ).style.filter = `invert(${
+            folderAddressBack.length === 0 ? 0.5 : 0
+          })`;
+          document.getElementById(
+            "FileExplorerForwardButton"
+          ).style.filter = `invert(${
+            folderAddressFoward.length === 0 ? 0.5 : 0
+          })`;
+        }
         clearInterval(blockInterval);
       }
     }, 10);
@@ -489,7 +510,9 @@ export const changeTheme = () => {
   });
 
   iterateClass("window-header", (e) => {
-    e.style.backgroundColor = lightTheme ? "#15a5ff" : "#112";
+    e.style.background = lightTheme
+      ? "#eff4f9"
+      : "linear-gradient(90deg, rgba(31,32,42,1) 0%, rgba(30,32,44,1) 25%, rgba(29,32,46,1) 39%, rgba(28,31,50,1) 100%)";
     e.style.color = lightTheme ? "black" : "white";
   });
 
@@ -498,7 +521,7 @@ export const changeTheme = () => {
   });
 
   iterateClass("window-footer", (e) => {
-    e.style.backgroundColor = lightTheme ? "#e5eaff" : "#1c1c1c";
+    e.style.backgroundColor = lightTheme ? "#fff" : "#1c1c1c";
     e.style.color = lightTheme ? "black" : "white";
   });
 
@@ -507,6 +530,69 @@ export const changeTheme = () => {
       e.style.transition = "0ms";
     });
   }, 300);
+
+  // File Explorer:
+  document.getElementById("FileExplorer-content").style.backgroundColor =
+    lightTheme ? "#fff" : "#191919";
+
+  document.getElementById("FileExplorer-panel").style.background = lightTheme
+    ? "linear-gradient(#eff4f9, #eff4f9, #eff4f9, #eff4f9)"
+    : // : "linear-gradient(#171929, #17192c, #17192f, #171930)";
+      "linear-gradient(90deg, rgba(31,32,42,1) 0%, rgba(30,32,44,1) 25%, rgba(29,32,46,1) 39%, rgba(28,31,50,1) 100%)";
+
+  document.getElementById(
+    "FileExplorer-panel"
+  ).style.borderBottom = `1px solid ${lightTheme ? "#bbb" : "#444"}`;
+
+  iterateClass("FEP-Items", (e) => {
+    e.style.borderRight = `1px solid ${lightTheme ? "#bbb" : "#ffffff5f"}`;
+  });
+
+  document.getElementById(
+    "FileExplorerAddressbarAndOperations"
+  ).style.borderBottom = `1px solid ${lightTheme ? "#bbb" : "#444"}`;
+
+  iterateQuery('.FileExplorerAddressBar > input[type="text"]', (e) => {
+    e.style.backgroundColor = lightTheme ? "#fff" : "#191919";
+    e.style.border = `1px solid ${lightTheme ? "#bbb" : "#444"}`;
+  });
+
+  iterateQuery(".FileExplorerAddressBar", (e) => {
+    if (lightTheme) e.classList.add("FileExplorerAddressBarLight");
+    else e.classList.remove("FileExplorerAddressBarLight");
+  });
+
+  iterateQuery(".FileExplorerSearchBar input", (e) => {
+    e.style.backgroundColor = lightTheme ? "#fff" : "#191919";
+    e.style.border = `1px solid ${lightTheme ? "#bbb" : "#444"}`;
+    e.style.color = lightTheme ? "black" : "white";
+  });
+
+  // let FEAObuttons = document.getElementById("FileExplorerOperationButton");
+  // console.log(FEAObuttons);
+  iterateClass("FileExplorerOperationButton", (e) => {
+    if (lightTheme) e.classList.add("FileExplorerOperationButtonLight");
+    else e.classList.remove("FileExplorerOperationButtonLight");
+  });
+
+  document.getElementById(
+    "FileExplorerLeftPanel"
+  ).style.borderRight = `1px solid ${lightTheme ? "#bbb" : "#444"}`;
+
+  iterateClass("DownArrowTailless", (e) => {
+    if (!e.classList.contains("DownArrowTailless-Closed"))
+      e.style.filter = `invert(${lightTheme ? 0 : 1})`;
+  });
+
+  iterateClass("DownArrowTailless-Closed", (e) => {
+    e.style.filter = `invert(0.5)`;
+  });
+
+  iterateQuery(".FileExplorerLeftPanel hr", (e) => {
+    e.style.borderBottom = `1px solid ${lightTheme ? "#bbb" : "#444"}`;
+  });
+
+  // File Explorer End
 
   document.getElementById("DesktopRightClickMenu").style.backgroundColor =
     lightTheme ? "#e5eaff" : "#115";
@@ -831,6 +917,7 @@ export const folderStructure = {
         },
       },
       "TV Shows": {
+        Sample: {},
         "Breaking Bad.mp4": 802,
         "Game of Thrones.mp4": 87,
       },
@@ -839,10 +926,17 @@ export const folderStructure = {
 };
 
 export const driveName = {
-  C: "Windows",
-  D: "Ashu",
+  C: "Windows 11",
+  D: "Data",
   E: "Drive",
   F: "Drive",
+};
+
+export const driveSize = {
+  C: { used: 184.7, total: 237 },
+  D: { used: 152.4, total: 756 },
+  E: { used: 10, total: 100 },
+  F: { used: 10, total: 100 },
 };
 
 export const extenstionsAndLogo = {
@@ -962,6 +1056,41 @@ export function iterateFolderStructure(obj, address, toFind = "") {
   return searchedElements;
 }
 
+export const folderAddressBack = [];
+export function FileExplorerBackButton() {
+  if (folderAddressBack.length > 0) {
+    let address = folderAddressBack.pop();
+    if (address === "This PC") address = "";
+    folderAddressFoward.push(pwd);
+    renderFolder(address, true);
+  }
+  document.getElementById("FileExplorerBackButton").style.filter = `invert(${
+    folderAddressBack.length === 0 ? 0.5 : 0
+  })`;
+  document.getElementById("FileExplorerForwardButton").style.filter = `invert(${
+    folderAddressFoward.length === 0 ? 0.5 : 0
+  })`;
+  console.log({ folderAddressBack, folderAddressFoward });
+}
+
+export const folderAddressFoward = [];
+export function FileExplorerForwardButton() {
+  if (folderAddressFoward.length > 0) {
+    let address = folderAddressFoward.pop();
+    if (address === "This PC") address = "";
+    folderAddressBack.push(pwd);
+    renderFolder(address, true);
+  }
+
+  document.getElementById("FileExplorerBackButton").style.filter = `invert(${
+    folderAddressBack.length === 0 ? 0.5 : 0
+  })`;
+  document.getElementById("FileExplorerForwardButton").style.filter = `invert(${
+    folderAddressFoward.length === 0 ? 0.5 : 0
+  })`;
+  console.log({ folderAddressBack, folderAddressFoward });
+}
+
 export function renderSearchResults() {
   let windowSearchBox = document.getElementById("WindowsSearchBox");
 
@@ -1000,6 +1129,13 @@ export function renderSearchResults() {
     div.classList.add("WindowsSearchedResult");
     div.id = "WindowsSearchedResult" + WindowsSearchResultNum;
     div.title = `${name} (${address})`;
+    if (["Folder", "Drive"].includes(type)) {
+      div.onclick = () => {
+        renderFolder(address + "\\" + name);
+        openWindow("FileExplorer");
+        clickWindowsSearch(false);
+      };
+    }
 
     if (WindowsSearchResultNum === 1) {
       div.style.borderTop = "1px solid #ffffff5f";
@@ -1021,6 +1157,15 @@ export function renderSearchResults() {
       <hr />\
       <div class="WindowsSearchSingleResultOpen" title="${name} (${address})"><img src=${OpenLink} alt=${"Open"} />Open</div>\
       `;
+
+      if (["Folder", "Drive"].includes(type)) {
+        document.querySelector(".WindowsSearchSingleResultOpen").onclick =
+          () => {
+            renderFolder(address + "\\" + name);
+            openWindow("FileExplorer");
+            clickWindowsSearch(false);
+          };
+      }
     }
 
     WindowsSearchResultNum++;
@@ -1093,14 +1238,22 @@ export function removeEmptySpacesFromArray(array) {
 }
 
 let pwd = "This PC";
-export function renderFolder(address = "") {
+export function renderFolder(address = "", BackOrForwardButtonPressed = false) {
   console.log("Rendering Folder " + address);
   address = address.replace("/", "\\").split("\\");
   if (address[0] !== "" && !address[0].includes(":")) {
     address[0] = address[0].toUpperCase() + ":";
   }
   address = address.join("\\");
-  if (address === "") address = "This PC";
+  if (address === "") {
+    address = "This PC";
+    let div = document.createElement("div");
+    div.style.width = "100%";
+    div.style.height = "100px";
+    div.style.background = "red";
+    div.innerHTML = "Dfsf";
+    document.getElementById("FileExplorerMain").append(div);
+  }
 
   let givenFolderStructure = ["", "This PC"].includes(address)
     ? folderStructure
@@ -1108,8 +1261,84 @@ export function renderFolder(address = "") {
   let FileExplorerMain = document.getElementById("FileExplorerMain");
 
   if (givenFolderStructure !== undefined) {
+    document.getElementById("FileExplorer-footer").innerText =
+      Object.keys(givenFolderStructure).length + " Items";
+    if (BackOrForwardButtonPressed === false) folderAddressBack.push(pwd);
     pwd = address;
+
+    document.getElementById("FileExplorerBackButton").style.filter = `invert(${
+      folderAddressBack.length === 0 ? 0.5 : 0
+    })`;
+    document.getElementById(
+      "FileExplorerForwardButton"
+    ).style.filter = `invert(${folderAddressFoward.length === 0 ? 0.5 : 0})`;
+
     FileExplorerMain.innerHTML = "";
+
+    if (["", "This PC"].includes(address)) {
+      let divLabel = document.createElement("div");
+      divLabel.classList.add("ThisPC-Main-Labels");
+      divLabel.style.width = "100%";
+      divLabel.style.height = "1.5rem";
+      divLabel.style.display = "flex";
+      divLabel.style.alignItems = "center";
+      divLabel.style.whiteSpace = "nowrap";
+      // divLabel.style.background = "red";
+      divLabel.innerHTML = `<img src=${DownArrowTailless} class="DownArrowTailless" alt=""/><div style="margin-left: 0.46rem">Folders (5)</div><hr style="width: calc(100% - 8rem); height: 0; border: none; border-bottom: 0.1rem solid #888">`;
+      document.getElementById("FileExplorerMain").append(divLabel);
+
+      let div = document.createElement("div");
+      div.style.width = "100%";
+      div.style.display = "flex";
+      div.style.flexWrap = "wrap";
+      let FoldersToAdd = [
+        "Documents",
+        "Downloads",
+        "Pictures",
+        "Music",
+        "Videos",
+      ];
+
+      for (let i = 0; i < FoldersToAdd.length; i++) {
+        let ThisPCFileExplorerItem = document.createElement("div");
+        ThisPCFileExplorerItem.classList.add("FileExplorerItem");
+        ThisPCFileExplorerItem.onclick = () => {
+          iterateClass("FileExplorerItem", (e) => {
+            e.setAttribute("is-focused", "false");
+            e.setAttribute("is-outlined", "false");
+          });
+          ThisPCFileExplorerItem.setAttribute("is-focused", "true");
+          ThisPCFileExplorerItem.setAttribute("is-outlined", "true");
+        };
+        ThisPCFileExplorerItem.ondblclick = () =>
+          renderFolder(`C:\\Users\\Ashu\\${FoldersToAdd[i]}`);
+
+        let img = document.createElement("img");
+        img.src = extenstionsAndLogo[FoldersToAdd[i]];
+        let innerDiv = document.createElement("div");
+        innerDiv.innerText = FoldersToAdd[i];
+        ThisPCFileExplorerItem.append(img);
+        ThisPCFileExplorerItem.append(innerDiv);
+        div.append(ThisPCFileExplorerItem);
+      }
+
+      document.getElementById("FileExplorerMain").append(div);
+
+      let divLabel2 = document.createElement("div");
+      divLabel2.classList.add("ThisPC-Main-Labels");
+      divLabel2.style.width = "100%";
+      divLabel2.style.height = "1.5rem";
+      divLabel2.style.display = "flex";
+      divLabel2.style.alignItems = "center";
+      divLabel2.style.whiteSpace = "nowrap";
+      divLabel2.style.marginTop = "0.5rem";
+      divLabel2.style.marginBottom = "1rem";
+
+      // divLabel2.style.marginLeft = "0.46rem";
+      divLabel2.innerHTML = `<img src=${DownArrowTailless} class="DownArrowTailless" alt=""/><div style="margin-left: 0.46rem">Devices and drives (2)</div><hr style="width: calc(100% - 12.5rem); height: 0; border: none; border-bottom: 0.1rem solid #888">`;
+      document.getElementById("FileExplorerMain").append(divLabel2);
+    }
+
     for (const item in givenFolderStructure) {
       let ItemLogo =
         typeof givenFolderStructure[item] === "object"
@@ -1120,8 +1349,28 @@ export function renderFolder(address = "") {
 
       let div = document.createElement("div");
       div.classList.add("FileExplorerItem");
+
+      let percentDiskSpaceUsed;
+      if (["C", "D", "E", "F"].includes(item))
+        percentDiskSpaceUsed =
+          (driveSize[item]["used"] / driveSize[item]["total"]) * 100;
+
       div.innerHTML = ["C", "D", "E", "F"].includes(item)
-        ? `<img src=${ItemLogo} alt=${item}/><div>${driveName[item]} (${item}:)</div>`
+        ? `<img src=${ItemLogo} alt=${item}/>\
+        <div class="DriveNameAndSize">\
+          <div>${driveName[item]} (${item}:)</div>\
+          <div class="DriveSize" style="grid-template-columns: ${percentDiskSpaceUsed}% auto;">\
+            <div class="DriveSizeUsed" style="background-color: ${
+              percentDiskSpaceUsed > 80 ? "#f00" : "#26a0da"
+            }"></div>\
+            <div class="DriveSizeFree"></div>
+          </div>\
+          <div class="DriveSizeText">\
+            ${(driveSize[item]["total"] - driveSize[item]["used"]).toFixed(
+              1
+            )} GB free of ${driveSize[item]["total"]} GB
+          </div>\
+        </div>`
         : `<img src=${ItemLogo} alt=${item}/><div>${item}</div>`;
 
       if (typeof givenFolderStructure[item] === "object") {
@@ -1132,7 +1381,7 @@ export function renderFolder(address = "") {
             .replace("\\\\", "\\")
         );
 
-        div.onclick = () => {
+        div.ondblclick = () => {
           let folderAddress = (address + "\\" + item)
             .replace("/", "\\")
             .replace("This PC\\", "")
@@ -1141,6 +1390,14 @@ export function renderFolder(address = "") {
           renderFolder(folderAddress);
         };
       }
+      div.onclick = () => {
+        iterateClass("FileExplorerItem", (e) => {
+          e.setAttribute("is-focused", "false");
+          e.setAttribute("is-outlined", "false");
+        });
+        div.setAttribute("is-focused", "true");
+        div.setAttribute("is-outlined", "true");
+      };
 
       FileExplorerMain.append(div);
     }
@@ -1164,12 +1421,21 @@ export function renderFolder(address = "") {
 
     let AddressBarDiv = document.querySelector("#FEAB-Div");
     AddressBarDiv.innerHTML = "";
+
     let div = document.createElement("div");
-    div.classList.add("#FEAB-Div-Item");
-    div.innerHTML = `<div class="FEAB-Div-Item-Gt">&gt;</div><div class="FEAB-Div-Item-Label">This PC</div><div class="FEAB-Div-Item-Gt">&gt;</div>`;
+    div.classList.add("FEAB-Div-Item");
     div.style.display = "flex";
     div.onclick = () => renderFolder("");
+    div.innerHTML = `<div class="FEAB-Div-Item-Gt">&gt;</div>`;
     AddressBarDiv.append(div);
+
+    let div2 = document.createElement("div");
+    div2.classList.add("FEAB-Div-Item");
+    div2.style.display = "flex";
+    div2.onclick = () => renderFolder("");
+    // div2.innerHTML = `<div class="FEAB-Div-Item-Label">This PC</div><div class="FEAB-Div-Item-Gt"><img src=${DownArrowTailless} class="DownArrowTailless" alt=""/></div>`;
+    div2.innerHTML = `<div class="FEAB-Div-Item-Label">This PC</div><div class="FEAB-Div-Item-Gt">&gt;</div>`;
+    AddressBarDiv.append(div2);
 
     for (let i = 0; i < finalAddress.length; i++) {
       let combinedAddress = "";
@@ -1179,7 +1445,7 @@ export function renderFolder(address = "") {
       }
 
       let div = document.createElement("div");
-      div.classList.add("#FEAB-Div-Item");
+      div.classList.add("FEAB-Div-Item");
       let divLabel =
         i === 0
           ? driveName[finalAddress[0]] + ` (${finalAddress[0]}:)`
@@ -1221,7 +1487,7 @@ export function renderFolder(address = "") {
       ? driveName[folderName] + ` (${folderName}:)`
       : folderName;
 
-    console.log({ pwd });
+    console.log({ pwd, address });
   } else {
     window.alert("Invalid Address");
   }

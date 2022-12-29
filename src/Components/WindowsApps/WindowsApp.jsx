@@ -39,7 +39,7 @@ function Window(props) {
   }, 10);
 
   return (
-    <div className="window" id={props.windowId}>
+    <div className="window" id={props.windowId} onClick={props.onClick}>
       <div
         className={"window-header " + props.windowId + "-header"}
         id={props.windowId + "-header"}
