@@ -28,6 +28,10 @@ setTimeout(() => {
 
   changeTheme();
   changeTheme();
+
+  window.addEventListener("offline", () => {
+    window.alert("You Are offline. Please check your Internet connection.");
+  });
 }, 10);
 
 function App() {
