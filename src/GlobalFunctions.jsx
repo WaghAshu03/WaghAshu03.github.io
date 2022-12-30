@@ -830,7 +830,7 @@ export function toggleCalenderAndNotifications(customInput = "custom-input") {
   CalenderAndNotificationVisible = !CalenderAndNotificationVisible;
 }
 
-// An App Will Be a Function which will strictly have default parameters.
+// An App Will Be a Function which will strictly have single default parameter(string) and parameter passed will be string.
 export const Apps = {
   Word: () => {
     window.alert("Clicked Word");
@@ -852,6 +852,10 @@ export const Apps = {
     window.alert("Clicked VLC");
   },
   "File Explorer": (address = "") => {
+    if (typeof address !== "string") {
+      console.log({ address });
+      address = "";
+    }
     renderFolder(address);
     while (folderAddressBack.length > 0) {
       folderAddressBack.pop();
@@ -1074,6 +1078,10 @@ export function iterateFolderStructure(obj, address, toFind = "") {
             ? extenstionsAndLogo[fileFolder] === undefined
               ? extenstionsAndLogo["folder"]
               : extenstionsAndLogo[fileFolder]
+            : extenstionsAndLogo[
+                fileFolder.substring(fileFolder.lastIndexOf(".") + 1)
+              ] === undefined
+            ? extenstionsAndLogo["unknown"]
             : extenstionsAndLogo[
                 fileFolder.substring(fileFolder.lastIndexOf(".") + 1)
               ],
@@ -1497,6 +1505,7 @@ export function renderFolder(address = "", BackOrForwardButtonPressed = false) {
           renderFolder(folderAddress);
         };
       } else if (typeof givenFolderStructure[item] === "function") {
+        let temp = givenFolderStructure[item];
         div.ondblclick = givenFolderStructure[item];
       }
       div.onclick = () => {
