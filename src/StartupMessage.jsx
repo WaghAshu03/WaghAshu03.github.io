@@ -1,3 +1,4 @@
+//todo: Completely Redesign Startup Message also make it resizable and draggable
 import React from "react";
 import "./StartupMessage.scss";
 import GithubIcon from "./Resources/github.webp";
@@ -91,7 +92,10 @@ function StartupMessage() {
           }}
         />
       </div>
-      <div id="StartupMessageMain">
+      <div
+        className={"window-header StartupMessage-header"}
+        id="StartupMessage-header"
+      >
         <div id="StartupMessageHeading">About (Work in Progress)</div>
         <div style={{ marginBottom: "10px", textAlign: "justify" }}>
           <div
