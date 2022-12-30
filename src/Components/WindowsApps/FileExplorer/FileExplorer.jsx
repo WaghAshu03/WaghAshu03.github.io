@@ -33,6 +33,7 @@ import DocumentsSm from "../../../Resources/icon/Folders/documents-sm.png";
 import DownloadsSm from "../../../Resources/icon/Folders/downloads-sm.png";
 import PicturesSm from "../../../Resources/icon/Folders/pictures-sm.png";
 import MusicSm from "../../../Resources/icon/Folders/music-sm.png";
+import VideosSm from "../../../Resources/icon/Folders/videos-sm.png";
 import OnedriveSm from "../../../Resources/icon/Folders/onedrive-sm.png";
 import NetworkIcon from "../../../Resources/icon/Folders/network.png";
 
@@ -224,6 +225,16 @@ function FileExplorer() {
                 &nbsp;
                 <img src={MusicSm} alt="" className="LeftPanelItem-Image" />
                 Music
+              </div>
+
+              <div
+                className="LeftPanelItem LeftPanelItem-Music"
+                id="LeftPanelItem-Music"
+                onClick={() => renderFolder("C:\\Users\\Ashu\\Videos")}
+              >
+                &nbsp;
+                <img src={VideosSm} alt="" className="LeftPanelItem-Image" />
+                Videos
               </div>
               <hr />
               <div
