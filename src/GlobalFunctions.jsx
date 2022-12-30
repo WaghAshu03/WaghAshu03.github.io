@@ -32,7 +32,11 @@ import VideoExtensions from "./Resources/icon/Extensions/video-extensions.png";
 import WebExtensions from "./Resources/icon/Extensions/web-extensions.png";
 import WordDocExtensions from "./Resources/icon/Extensions/word-doc-extensions.png";
 import ThisPC from "./Resources/icon/thispc.png";
+import terminalLogo from "./Resources/icon/terminal.png";
+import settingsLogo from "./Resources/icon/settings.png";
+import explorerLogo from "./Resources/icon/explorer.png";
 
+//todo: Delete or Update functions consoleLog, consoleClear to create a working terminal
 let consoleId = 0;
 export function consoleLog() {
   try {
@@ -113,6 +117,7 @@ export function closeFullscreen() {
   console.log("Closed Full Screen");
 }
 
+//todo: rewrite logic for dragging windows(dragged through window-header if available else make entire window draggable)
 let currentZIndex = 100;
 export function initDragElement() {
   var pos1 = 0,
@@ -191,6 +196,7 @@ export function initDragElement() {
   }
 }
 
+//todo: rewrite logic for resizing window: make it able to resize from all 4 sides
 export function initResizeElement() {
   var windows = document.getElementsByClassName("window");
   var element = null;
@@ -512,9 +518,10 @@ export const changeTheme = () => {
   });
 
   iterateClass("window-header", (e) => {
-    e.style.background = lightTheme
-      ? "#eff4f9"
-      : "linear-gradient(90deg, rgba(31,32,42,1) 0%, rgba(30,32,44,1) 25%, rgba(29,32,46,1) 39%, rgba(28,31,50,1) 100%)";
+    if (e.id !== "StartupMessage-header")
+      e.style.background = lightTheme
+        ? "#eff4f9"
+        : "linear-gradient(90deg, rgba(31,32,42,1) 0%, rgba(30,32,44,1) 25%, rgba(29,32,46,1) 39%, rgba(28,31,50,1) 100%)";
     e.style.color = lightTheme ? "black" : "white";
   });
 
@@ -823,6 +830,46 @@ export function toggleCalenderAndNotifications(customInput = "custom-input") {
   CalenderAndNotificationVisible = !CalenderAndNotificationVisible;
 }
 
+// An App Will Be a Function which will strictly have default parameters.
+export const Apps = {
+  Word: () => {
+    window.alert("Clicked Word");
+  },
+  Edge: () => {
+    window.alert("Clicked Edge");
+  },
+  Terminal: () => {
+    window.alert("Clicked Terminal");
+  },
+  Settings: () => {
+    // window.alert("Clicked Settings");
+    openWindow("settings");
+  },
+  "MP3 Player": () => {
+    window.alert("Clicked MP3 Player");
+  },
+  VLC: () => {
+    window.alert("Clicked VLC");
+  },
+  "File Explorer": (address = "") => {
+    renderFolder(address);
+    while (folderAddressBack.length > 0) {
+      folderAddressBack.pop();
+    }
+    while (folderAddressFoward.length > 0) {
+      folderAddressFoward.pop();
+    }
+    document.getElementById("FileExplorerBackButton").style.filter = `invert(${
+      folderAddressBack.length === 0 ? 0.5 : 0
+    })`;
+    document.getElementById(
+      "FileExplorerForwardButton"
+    ).style.filter = `invert(${folderAddressFoward.length === 0 ? 0.5 : 0})`;
+
+    openWindow("FileExplorer");
+  },
+};
+
 export const folderStructure = {
   C: {
     PerfLogs: {},
@@ -855,7 +902,15 @@ export const folderStructure = {
       Ashu: {
         "3D Objects": {},
         Contacts: {},
-        Desktop: {},
+        Desktop: {
+          Word: Apps["Word"],
+          Edge: Apps["Edge"],
+          Terminal: Apps["Terminal"],
+          Settings: Apps["Settings"],
+          "MP3 Player": Apps["MP3 Player"],
+          VLC: Apps["VLC"],
+          "File Explorer": Apps["File Explorer"],
+        },
         Documents: {},
         Downloads: {},
         Favourites: {},
@@ -899,6 +954,7 @@ export const folderStructure = {
       Work: {
         "Report.docx": 8,
         "Presentation.pptx": 5,
+        Presentation: 5,
       },
       Personal: {
         "Vacation Photos": {
@@ -983,11 +1039,18 @@ export const extenstionsAndLogo = {
   D: Drive,
   E: Drive,
   F: Drive,
+
+  // Apps
+  Word: WordDocExtensions,
+  Edge: WebExtensions,
+  Terminal: terminalLogo,
+  Settings: settingsLogo,
+  "File Explorer": explorerLogo,
 };
 
 export function iterateFolderStructure(obj, address, toFind = "") {
   toFind = toFind.trim().replace("/", "\\");
-  console.clear();
+  // console.clear();
   console.log({ Searched: toFind });
   if (toFind === "") return [];
 
@@ -1019,6 +1082,8 @@ export function iterateFolderStructure(obj, address, toFind = "") {
             ? address === ""
               ? "drive"
               : "folder"
+            : typeof obj[fileFolder] === "function"
+            ? "App"
             : fileFolder.substring(fileFolder.lastIndexOf(".") + 1),
         name: fileFolder,
         address: address === "" ? "This PC" : address.replace("\\\\", "\\"),
@@ -1028,6 +1093,8 @@ export function iterateFolderStructure(obj, address, toFind = "") {
             : obj[fileFolder] < 1024
             ? `${obj[fileFolder].toFixed(2)} MB`
             : `${(obj[fileFolder] / 1024).toFixed(2)} GB`,
+        appFunction:
+          typeof obj[fileFolder] === "function" ? obj[fileFolder] : null,
       });
     }
 
@@ -1126,6 +1193,7 @@ export function renderSearchResults() {
     let name = SearchedResult.name;
     let address = SearchedResult.address;
     let size = SearchedResult.size;
+    let appFunction = SearchedResult.appFunction;
 
     let div = document.createElement("div");
     div.classList.add("WindowsSearchedResult");
@@ -1133,17 +1201,24 @@ export function renderSearchResults() {
     div.title = `${name} (${address})`;
     if (["Folder", "Drive"].includes(type)) {
       div.onclick = () => {
+        currentZIndex++;
+        document.getElementById("FileExplorer").style.zIndex = currentZIndex;
         clickWindowsSearch(false);
-        setTimeout(() => {
-          renderFolder(
-            ["This PC", ""].includes(address) ? name : address + "\\" + name
-          );
-        }, 135);
+        windowResize("FileExplorer");
+        renderFolder(
+          ["This PC", ""].includes(address) ? name : address + "\\" + name
+        );
 
         setTimeout(() => {
           openWindow("FileExplorer");
-          windowResize("FileExplorer");
-        }, 140);
+        }, 250);
+      };
+    } else if (type === "App") {
+      div.onclick = () => {
+        clickWindowsSearch(false);
+        setTimeout(() => {
+          appFunction();
+        }, 250);
       };
     }
 
@@ -1171,17 +1246,26 @@ export function renderSearchResults() {
       if (["Folder", "Drive"].includes(type)) {
         document.querySelector(".WindowsSearchSingleResultOpen").onclick =
           () => {
+            currentZIndex++;
+            document.getElementById("FileExplorer").style.zIndex =
+              currentZIndex;
             clickWindowsSearch(false);
-            setTimeout(() => {
-              renderFolder(
-                ["This PC", ""].includes(address) ? name : address + "\\" + name
-              );
-            }, 135);
+            windowResize("FileExplorer");
+            renderFolder(
+              ["This PC", ""].includes(address) ? name : address + "\\" + name
+            );
 
             setTimeout(() => {
               openWindow("FileExplorer");
-              windowResize("FileExplorer");
-            }, 140);
+            }, 250);
+          };
+      } else if (type === "App") {
+        document.querySelector(".WindowsSearchSingleResultOpen").onclick =
+          () => {
+            clickWindowsSearch(false);
+            setTimeout(() => {
+              appFunction();
+            }, 250);
           };
       }
     }
@@ -1302,20 +1386,22 @@ export function renderFolder(address = "", BackOrForwardButtonPressed = false) {
       divLabel.style.alignItems = "center";
       divLabel.style.whiteSpace = "nowrap";
       // divLabel.style.background = "red";
-      divLabel.innerHTML = `<img src=${DownArrowTailless} class="DownArrowTailless" alt=""/><div style="margin-left: 0.46rem">Folders (5)</div><hr style="width: calc(100% - 8rem); height: 0; border: none; border-bottom: 0.1rem solid #888">`;
-      document.getElementById("FileExplorerMain").append(divLabel);
 
-      let div = document.createElement("div");
-      div.style.width = "100%";
-      div.style.display = "flex";
-      div.style.flexWrap = "wrap";
       let FoldersToAdd = [
+        "Desktop",
         "Documents",
         "Downloads",
         "Pictures",
         "Music",
         "Videos",
       ];
+      divLabel.innerHTML = `<img src=${DownArrowTailless} class="DownArrowTailless" alt=""/><div style="margin-left: 0.46rem">Folders (${FoldersToAdd.length})</div><hr style="width: calc(100% - 8rem); height: 0; border: none; border-bottom: 0.1rem solid #888">`;
+      document.getElementById("FileExplorerMain").append(divLabel);
+
+      let div = document.createElement("div");
+      div.style.width = "100%";
+      div.style.display = "flex";
+      div.style.flexWrap = "wrap";
 
       for (let i = 0; i < FoldersToAdd.length; i++) {
         let ThisPCFileExplorerItem = document.createElement("div");
@@ -1363,6 +1449,9 @@ export function renderFolder(address = "", BackOrForwardButtonPressed = false) {
           ? extenstionsAndLogo[item] === undefined
             ? extenstionsAndLogo["folder"]
             : extenstionsAndLogo[item]
+          : extenstionsAndLogo[item.substring(item.lastIndexOf(".") + 1)] ===
+            undefined
+          ? extenstionsAndLogo["unknown"]
           : extenstionsAndLogo[item.substring(item.lastIndexOf(".") + 1)];
 
       let div = document.createElement("div");
@@ -1407,6 +1496,8 @@ export function renderFolder(address = "", BackOrForwardButtonPressed = false) {
 
           renderFolder(folderAddress);
         };
+      } else if (typeof givenFolderStructure[item] === "function") {
+        div.ondblclick = givenFolderStructure[item];
       }
       div.onclick = () => {
         iterateClass("FileExplorerItem", (e) => {
