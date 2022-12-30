@@ -142,6 +142,9 @@ function Window(props) {
     document.getElementById(props.windowId).style.height = props.height;
     document.getElementById(props.windowId).style.top = props.top;
     document.getElementById(props.windowId).style.left = props.left;
+    if (props.footer === "")
+      document.getElementById(props.windowId).style.gridTemplateRows =
+        "38px auto 0px";
   }, 10);
 
   return (

@@ -14,7 +14,7 @@ function terminal() {
       windowTitle="Console"
       panel={<>Panel</>}
       content={""}
-      footer="Footer"
+      footer=""
     />
   );
 }
